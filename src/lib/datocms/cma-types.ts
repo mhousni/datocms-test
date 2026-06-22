@@ -806,11 +806,7 @@ export const ChangeLog = {
   REF: { type: 'item_type', id: '2179046' },
 } as const;
 
-export type AllPostsSection = ItemTypeDefinition<
-  EnvironmentSettings,
-  '2185423',
-  {}
->;
+export type AllPostsSection = ItemTypeDefinition<EnvironmentSettings, '2185423', {}>;
 export const AllPostsSection = {
   ID: '2185423',
   REF: { type: 'item_type', id: '2185423' },
