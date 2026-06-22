@@ -21,7 +21,7 @@ import Link from 'next/link';
 export const PageInlineFragment = graphql(
   /* GraphQL */ `
     fragment PageInlineFragment on PageRecord {
-      title
+      label
       ...PageUrlFragment
     }
   `,
@@ -48,7 +48,7 @@ export default function PageInline({ record }: Props) {
       className="pill"
       data-datocms-content-link-boundary
     >
-      {unmaskedRecord.title}
+      {unmaskedRecord.label}
     </Link>
   );
 }

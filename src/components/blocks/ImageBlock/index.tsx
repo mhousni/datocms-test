@@ -16,7 +16,7 @@ import { type FragmentOf, graphql, readFragment } from '@/lib/datocms/graphql';
 export const ImageBlockFragment = graphql(
   /* GraphQL */ `
     fragment ImageBlockFragment on ImageBlockRecord {
-      asset {
+      image {
         title
         responsiveImage {
           ...ResponsiveImageFragment
@@ -38,9 +38,9 @@ export default function ImageBlock({ data }: Props) {
   return (
     <figure data-datocms-content-link-group>
       {/* Display responsive image */}
-      <ResponsiveImage data={unmaskedData.asset.responsiveImage} />
+      <ResponsiveImage data={unmaskedData.image.responsiveImage} />
       {/* Display image title */}
-      <figcaption>{unmaskedData.asset.title}</figcaption>
+      <figcaption>{unmaskedData.image.title}</figcaption>
     </figure>
   );
 }

@@ -1,8 +1,3 @@
-import { ImageBlockFragment } from '@/components/blocks/ImageBlock';
-import { ImageGalleryBlockFragment } from '@/components/blocks/ImageGalleryBlock';
-import { VideoBlockFragment } from '@/components/blocks/VideoBlock';
-import { PageInlineFragment } from '@/components/inlineRecords/PageInline';
-import { PageLinkFragment } from '@/components/linkToRecords/PageLink';
 import { TagFragment } from '@/lib/datocms/commonFragments';
 import { graphql } from '@/lib/datocms/graphql';
 
@@ -18,11 +13,6 @@ export type PageProps = {
  * The GraphQL query that will be executed for this route to generate the page
  * content and metadata.
  *
- * The page composes one query from the fragments exported by every
- * sub-component it renders: the imports list mirrors the second argument of
- * `graphql(...)` — adding `...FooFragment` to the query string means also
- * adding `FooFragment` to the imports and to the composition array.
- *
  * Thanks to gql.tada, the result will be fully typed!
  */
 export const query = graphql(
@@ -32,37 +22,16 @@ export const query = graphql(
         _seoMetaTags {
           ...TagFragment
         }
-        title
+        label
         _firstPublishedAt
-        structuredText {
-          value
-          blocks {
-            ... on RecordInterface {
-              id
-              __typename
-            }
-            ...ImageBlockFragment
-            ...ImageGalleryBlockFragment
-            ...VideoBlockFragment
-          }
-          links {
-            ... on RecordInterface {
-              id
-              __typename
-            }
-            ...PageInlineFragment
-            ...PageLinkFragment
+        sections {
+          ... on RecordInterface {
+            id
+            __typename
           }
         }
       }
     }
   `,
-  [
-    TagFragment,
-    ImageBlockFragment,
-    ImageGalleryBlockFragment,
-    VideoBlockFragment,
-    PageInlineFragment,
-    PageLinkFragment,
-  ],
+  [TagFragment],
 );

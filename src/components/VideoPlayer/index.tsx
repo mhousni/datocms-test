@@ -1,55 +1,23 @@
 import { type FragmentOf, graphql, readFragment } from '@/lib/datocms/graphql';
-import { VideoPlayer as DatoVideoPlayer, type VideoPlayerProps } from 'react-datocms/video-player';
 
 /**
- * Let's define the GraphQL fragment needed for the component to function.
+ * VideoPlayerFragment is stubbed to RecordInterface because `VideoFileField`
+ * does not exist in the active DatoCMS schema for this project.
  *
- * GraphQL fragment colocation keeps queries near the components using them,
- * improving maintainability and encapsulation. Fragment composition enables
- * building complex queries from reusable parts, promoting code reuse and
- * efficiency. Together, these practices lead to more modular, maintainable, and
- * performant GraphQL implementations by allowing precise data fetching and
- * easier code management.
- *
- * Learn more: https://gql-tada.0no.co/guides/fragment-colocation
+ * If you add a video field to your DatoCMS schema in the future, update this
+ * fragment to point to the correct type (e.g. `on FileField`) and re-implement
+ * the component body.
  */
 export const VideoPlayerFragment = graphql(/* GraphQL */ `
-  fragment VideoPlayerFragment on VideoFileField {
-    video {
-      # required: this field identifies the video to be played
-      muxPlaybackId
-
-      # all the other fields are not required but:
-
-      # if provided, title is displayed in the upper left corner of the video
-      title
-
-      # alt text for the video, useful for content-link metadata
-      alt
-
-      # if provided, width and height are used to define the aspect ratio of the
-      # player, so to avoid layout jumps during the rendering.
-      width
-      height
-
-      # if provided, it shows a blurred placeholder for the video
-      blurUpThumb
-    }
+  fragment VideoPlayerFragment on RecordInterface {
+    id
   }
 `);
 
-type Props = Omit<VideoPlayerProps, 'data'> & {
+type Props = {
   data: FragmentOf<typeof VideoPlayerFragment>;
 };
 
-/**
- * This component is a wrapper for the `<VideoPlayer />` component provided by
- * react-datocms, optimized for use with graphql.tada. We define the necessary
- * GraphQL fragment for this component to function only once, then reuse it
- * wherever needed.
- */
-export default function VideoPlayer({ data, ...other }: Props) {
-  const unmaskedData = readFragment(VideoPlayerFragment, data);
-
-  return <DatoVideoPlayer data={unmaskedData.video} accentColor="var(--bg-accent)" {...other} />;
+export default function VideoPlayer({ data }: Props) {
+  return null;
 }
