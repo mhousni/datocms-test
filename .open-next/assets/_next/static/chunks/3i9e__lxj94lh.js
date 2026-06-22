@@ -1,1 +1,7 @@
-(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,18566,(o,t,e)=>{t.exports=o.r(76562)}]);
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push([
+  'object' == typeof document ? document.currentScript : void 0,
+  18566,
+  (o, t, e) => {
+    t.exports = o.r(76562);
+  },
+]);

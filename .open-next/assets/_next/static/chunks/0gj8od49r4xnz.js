@@ -1,1 +1,1918 @@
-(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,63587,e=>{"use strict";let t;var i=e.i(43476),n=e.i(71645),r=Object.create,o=Object.defineProperty,l=Object.getOwnPropertyDescriptor,s=Object.getOwnPropertyNames,a=Object.getPrototypeOf,d=Object.prototype.hasOwnProperty,h=(e,t)=>function(){return t||(0,e[s(e)[0]])((t={exports:{}}).exports,t),t.exports},u=h({"node_modules/penpal/lib/constants.js"(e){Object.defineProperty(e,"__esModule",{value:!0}),e.DATA_CLONE_ERROR=e.MESSAGE=e.REJECTED=e.FULFILLED=e.REPLY=e.CALL=e.HANDSHAKE_REPLY=e.HANDSHAKE=void 0,e.HANDSHAKE="handshake",e.HANDSHAKE_REPLY="handshake-reply",e.CALL="call",e.REPLY="reply",e.FULFILLED="fulfilled",e.REJECTED="rejected",e.MESSAGE="message",e.DATA_CLONE_ERROR="DataCloneError"}}),c=h({"node_modules/penpal/lib/errorCodes.js"(e){Object.defineProperty(e,"__esModule",{value:!0}),e.ERR_NO_IFRAME_SRC=e.ERR_NOT_IN_IFRAME=e.ERR_CONNECTION_TIMEOUT=e.ERR_CONNECTION_DESTROYED=void 0,e.ERR_CONNECTION_DESTROYED="ConnectionDestroyed",e.ERR_CONNECTION_TIMEOUT="ConnectionTimeout",e.ERR_NOT_IN_IFRAME="NotInIframe",e.ERR_NO_IFRAME_SRC="NoIframeSrc"}}),p=h({"node_modules/penpal/lib/createDestructor.js"(e,t){Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0,e.default=()=>{let e=[],t=!1;return{destroy(){t=!0,e.forEach(e=>{e()})},onDestroy(i){t?i():e.push(i)}}},t.exports=e.default}}),f=h({"node_modules/penpal/lib/getOriginFromSrc.js"(e,t){Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0;var i={"http:":"80","https:":"443"},n=/^(https?:)?\/\/([^/:]+)?(:(\d+))?/,r=["file:","data:"];e.default=e=>{let t,o,l;if(e&&r.find(t=>e.startsWith(t)))return"null";let s=document.location,a=n.exec(e);a?(t=a[1]?a[1]:s.protocol,o=a[2],l=a[4]):(t=s.protocol,o=s.hostname,l=s.port);let d=l&&l!==i[t]?`:${l}`:"";return`${t}//${o}${d}`},t.exports=e.default}}),m=h({"node_modules/penpal/lib/createLogger.js"(e,t){Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0,e.default=e=>function(){if(e){for(var t=arguments.length,i=Array(t),n=0;n<t;n++)i[n]=arguments[n];console.log("[Penpal]",...i)}},t.exports=e.default}}),g=h({"node_modules/penpal/lib/errorSerialization.js"(e){Object.defineProperty(e,"__esModule",{value:!0}),e.deserializeError=e.serializeError=void 0,e.serializeError=e=>{let t=e.name;return{name:t,message:e.message,stack:e.stack}},e.deserializeError=e=>{let t=Error();return Object.keys(e).forEach(i=>t[i]=e[i]),t}}}),E=h({"node_modules/penpal/lib/connectCallReceiver.js"(e,t){Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0;var i=u(),n=g();e.default=(e,t,r)=>{let o=e.localName,l=e.local,s=e.remote,a=e.originForSending,d=e.originForReceiving,h=!1;r(`${o}: Connecting call receiver`);let u=e=>{if(e.source!==s||e.data.penpal!==i.CALL)return;if(e.origin!==d)return void r(`${o} received message from origin ${e.origin} which did not match expected origin ${d}`);let l=e.data,u=l.methodName,c=l.args,p=l.id;r(`${o}: Received ${u}() call`);let f=e=>t=>{if(r(`${o}: Sending ${u}() reply`),h)return void r(`${o}: Unable to send ${u}() reply due to destroyed connection`);let l={penpal:i.REPLY,id:p,resolution:e,returnValue:t};e===i.REJECTED&&t instanceof Error&&(l.returnValue=(0,n.serializeError)(t),l.returnValueIsError=!0);try{s.postMessage(l,a)}catch(e){throw e.name===i.DATA_CLONE_ERROR&&s.postMessage({penpal:i.REPLY,id:p,resolution:i.REJECTED,returnValue:(0,n.serializeError)(e),returnValueIsError:!0},a),e}};new Promise(e=>e(t[u].apply(t,c))).then(f(i.FULFILLED),f(i.REJECTED))};return l.addEventListener(i.MESSAGE,u),()=>{h=!0,l.removeEventListener(i.MESSAGE,u)}},t.exports=e.default}}),v=h({"node_modules/penpal/lib/generateId.js"(e,t){Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0;var i=0;e.default=()=>++i,t.exports=e.default}}),y=h({"node_modules/penpal/lib/connectCallSender.js"(e,t){Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0;var i,n=u(),r=c(),o=(i=v())&&i.__esModule?i:{default:i},l=g();e.default=(e,t,i,s,a)=>{let d=t.localName,h=t.local,u=t.remote,c=t.originForSending,p=t.originForReceiving,f=!1;return a(`${d}: Connecting call sender`),i.reduce((e,t)=>(e[t]=function(){let e;for(var i=arguments.length,m=Array(i),g=0;g<i;g++)m[g]=arguments[g];a(`${d}: Sending ${t}() call`);try{u.closed&&(e=!0)}catch(t){e=!0}if(e&&s(),f){let e=Error(`Unable to send ${t}() call due to destroyed connection`);throw e.code=r.ERR_CONNECTION_DESTROYED,e}return new Promise((e,i)=>{let r=(0,o.default)(),s=o=>{if(o.source!==u||o.data.penpal!==n.REPLY||o.data.id!==r)return;if(o.origin!==p)return void a(`${d} received message from origin ${o.origin} which did not match expected origin ${p}`);a(`${d}: Received ${t}() reply`),h.removeEventListener(n.MESSAGE,s);let c=o.data.returnValue;o.data.returnValueIsError&&(c=(0,l.deserializeError)(c)),(o.data.resolution===n.FULFILLED?e:i)(c)};h.addEventListener(n.MESSAGE,s),u.postMessage({penpal:n.CALL,id:r,methodName:t,args:m},c)})},e),e),()=>{f=!0}},t.exports=e.default}}),b=h({"node_modules/penpal/lib/connectToChild.js"(e,t){Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0;var i=u(),n=c(),r=d(p()),o=d(f()),l=d(m()),s=d(E()),a=d(y());function d(e){return e&&e.__esModule?e:{default:e}}e.default=e=>{let t=e.iframe,d=e.methods,h=void 0===d?{}:d,u=e.childOrigin,c=e.timeout,p=e.debug,f=(0,l.default)(p),m=window,g=(0,r.default)(),E=g.destroy,v=g.onDestroy;if(!u){if(!t.src&&!t.srcdoc){let e=Error("Iframe must have src or srcdoc property defined.");throw e.code=n.ERR_NO_IFRAME_SRC,e}u=(0,o.default)(t.src)}let y="null"===u?"*":u;return{promise:new Promise((e,r)=>{let o,l,d;void 0!==c&&(o=setTimeout(()=>{let e=Error(`Connection to child timed out after ${c}ms`);e.code=n.ERR_CONNECTION_TIMEOUT,r(e),E()},c));let p={},g=n=>{let r=t.contentWindow;if(n.source!==r||n.data.penpal!==i.HANDSHAKE)return;if(n.origin!==u)return void f(`Parent received handshake from origin ${n.origin} which did not match expected origin ${u}`);f("Parent: Received handshake, sending reply"),n.source.postMessage({penpal:i.HANDSHAKE_REPLY,methodNames:Object.keys(h)},y);let c={localName:"Parent",local:m,remote:r,originForSending:y,originForReceiving:u};d&&d(),v(d=(0,s.default)(c,h,f)),l&&l.forEach(e=>{delete p[e]}),l=n.data.methodNames,v((0,a.default)(p,c,l,E,f)),clearTimeout(o),e(p)};m.addEventListener(i.MESSAGE,g),f("Parent: Awaiting handshake");var b=setInterval(()=>{document.contains(t)||(clearInterval(b),E())},6e4);v(()=>{m.removeEventListener(i.MESSAGE,g),clearInterval(b);let e=Error("Connection destroyed");e.code=n.ERR_CONNECTION_DESTROYED,r(e)})}),destroy:E}},t.exports=e.default}}),w=h({"node_modules/penpal/lib/connectToParent.js"(e,t){Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0;var i=u(),n=c(),r=a(p()),o=a(E()),l=a(y()),s=a(m());function a(e){return e&&e.__esModule?e:{default:e}}e.default=function(){let e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},t=e.parentOrigin,a=void 0===t?"*":t,d=e.methods,h=void 0===d?{}:d,u=e.timeout,c=e.debug,p=(0,s.default)(c);if(window===window.top){let e=Error("connectToParent() must be called within an iframe");throw e.code=n.ERR_NOT_IN_IFRAME,e}let f=(0,r.default)(),m=f.destroy,g=f.onDestroy,E=window,v=E.parent;return{promise:new Promise((e,t)=>{let r;void 0!==u&&(r=setTimeout(()=>{let e=Error(`Connection to parent timed out after ${u}ms`);e.code=n.ERR_CONNECTION_TIMEOUT,t(e),m()},u));let s=t=>{try{clearTimeout()}catch(e){return}if(t.source!==v||t.data.penpal!==i.HANDSHAKE_REPLY)return;if("*"!==a&&a!==t.origin)return void p(`Child received handshake reply from origin ${t.origin} which did not match expected origin ${a}`);p("Child: Received handshake reply"),E.removeEventListener(i.MESSAGE,s);let n={localName:"Child",local:E,remote:v,originForSending:"null"===t.origin?"*":t.origin,originForReceiving:t.origin},d={};g((0,o.default)(n,h,p)),g((0,l.default)(d,n,t.data.methodNames,m,p)),clearTimeout(r),e(d)};E.addEventListener(i.MESSAGE,s),g(()=>{E.removeEventListener(i.MESSAGE,s);let e=Error("Connection destroyed");e.code=n.ERR_CONNECTION_DESTROYED,t(e)}),p("Child: Sending handshake"),v.postMessage({penpal:i.HANDSHAKE,methodNames:Object.keys(h)},a)}),destroy:m}},t.exports=e.default}}),C=h({"node_modules/penpal/lib/index.js"(e,t){Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0;var i=o(b()),n=o(w()),r=c();function o(e){return e&&e.__esModule?e:{default:e}}e.default={ERR_CONNECTION_DESTROYED:r.ERR_CONNECTION_DESTROYED,ERR_CONNECTION_TIMEOUT:r.ERR_CONNECTION_TIMEOUT,ERR_NOT_IN_IFRAME:r.ERR_NOT_IN_IFRAME,ERR_NO_IFRAME_SRC:r.ERR_NO_IFRAME_SRC,connectToChild:i.default,connectToParent:n.default},t.exports=e.default}}),A=e=>"object"==typeof e&&null!=e&&1===e.nodeType,T=(e,t)=>(!t||"hidden"!==e)&&"visible"!==e&&"clip"!==e,O=(e,t)=>{if(e.clientHeight<e.scrollHeight||e.clientWidth<e.scrollWidth){let i,n=getComputedStyle(e,null);return T(n.overflowY,t)||T(n.overflowX,t)||!!(i=(e=>{if(!e.ownerDocument||!e.ownerDocument.defaultView)return null;try{return e.ownerDocument.defaultView.frameElement}catch(e){return null}})(e))&&(i.clientHeight<e.scrollHeight||i.clientWidth<e.scrollWidth)}return!1},S=(e,t,i,n,r,o,l,s)=>o<e&&l>t||o>e&&l<t?0:o<=e&&s<=i||l>=t&&s>=i?o-e-n:l>t&&s<i||o<e&&s>i?l-t+r:0,R=e=>{let t=e.parentElement;return null==t?e.getRootNode().host||null:t};function P(e){let t="u">typeof Document?Document:void 0,i="u">typeof document?document:void 0;if(t&&e instanceof t)return e;let n=e.ownerDocument??i??null;if(!n)throw Error("Unable to resolve document");return n}function M(e){let t=new URL(e,"http://example.com");return t.pathname+t.search+t.hash}function _(e){return"u">typeof PointerEvent?e instanceof PointerEvent:"string"==typeof e.pointerType&&"mouse"===e.pointerType}function k(e){return"u">typeof MouseEvent?e instanceof MouseEvent:"number"==typeof e.button}function N(e){return"u">typeof KeyboardEvent?e instanceof KeyboardEvent:"string"==typeof e.key}function I(e){return e.defaultView??("u">typeof window?window:null)}function L(e){let t=e.activeElement;if(!t)return!1;let i=t.tagName;return"INPUT"===i||"TEXTAREA"===i||"SELECT"===i||t.isContentEditable}function x(e){return new Promise(t=>setTimeout(t,e))}function D(e,t){return new Promise((i,n)=>{if(e<=0)return void(t.aborted?n(Error("Animation cancelled")):i());let r=()=>{clearTimeout(o),t.removeEventListener("abort",r),n(Error("Animation cancelled"))},o=setTimeout(()=>{t.removeEventListener("abort",r),i()},e);t.addEventListener("abort",r)})}async function j(){return new Promise(e=>requestAnimationFrame(()=>{requestAnimationFrame(e)}))}function F(e){let t=P(e),i=e.getBoundingClientRect(),n=I(t);if(!n)return!1;let r=n.innerHeight||t.documentElement.clientHeight,o=n.innerWidth||t.documentElement.clientWidth;return i.top<r&&i.bottom>0&&i.left<o&&i.right>0}function $(e,t){let i=((e,t)=>{var i,n,r,o;let l;if("u"<typeof document)return[];let{scrollMode:s,block:a,inline:d,boundary:h,skipOverflowHiddenElements:u}=t,c="function"==typeof h?h:e=>e!==h;if(!A(e))throw TypeError("Invalid target");let p=document.scrollingElement||document.documentElement,f=[],m=e;for(;A(m)&&c(m);){if((m=R(m))===p){f.push(m);break}null!=m&&m===document.body&&O(m)&&!O(document.documentElement)||null!=m&&O(m,u)&&f.push(m)}let g=null!=(n=null==(i=window.visualViewport)?void 0:i.width)?n:innerWidth,E=null!=(o=null==(r=window.visualViewport)?void 0:r.height)?o:innerHeight,{scrollX:v,scrollY:y}=window,{height:b,width:w,top:C,right:T,bottom:P,left:M}=e.getBoundingClientRect(),{top:_,right:k,bottom:N,left:I}={top:parseFloat((l=window.getComputedStyle(e)).scrollMarginTop)||0,right:parseFloat(l.scrollMarginRight)||0,bottom:parseFloat(l.scrollMarginBottom)||0,left:parseFloat(l.scrollMarginLeft)||0},L="start"===a||"nearest"===a?C-_:"end"===a?P+N:C+b/2-_+N,x="center"===d?M+w/2-I+k:"end"===d?T+k:M-I,D=[];for(let e=0;e<f.length;e++){let t=f[e],{height:i,width:n,top:r,right:o,bottom:l,left:h}=t.getBoundingClientRect();if("if-needed"===s&&C>=0&&M>=0&&P<=E&&T<=g&&(t===p&&!O(t)||C>=r&&P<=l&&M>=h&&T<=o))break;let u=getComputedStyle(t),c=parseInt(u.borderLeftWidth,10),m=parseInt(u.borderTopWidth,10),A=parseInt(u.borderRightWidth,10),R=parseInt(u.borderBottomWidth,10),_=0,k=0,N="offsetWidth"in t?t.offsetWidth-t.clientWidth-c-A:0,I="offsetHeight"in t?t.offsetHeight-t.clientHeight-m-R:0,j="offsetWidth"in t?0===t.offsetWidth?0:n/t.offsetWidth:0,F="offsetHeight"in t?0===t.offsetHeight?0:i/t.offsetHeight:0;if(p===t)_="start"===a?L:"end"===a?L-E:"nearest"===a?S(y,y+E,E,m,R,y+L,y+L+b,b):L-E/2,k="start"===d?x:"center"===d?x-g/2:"end"===d?x-g:S(v,v+g,g,c,A,v+x,v+x+w,w),_=Math.max(0,_+y),k=Math.max(0,k+v);else{_="start"===a?L-r-m:"end"===a?L-l+R+I:"nearest"===a?S(r,l,i,m,R+I,L,L+b,b):L-(r+i/2)+I/2,k="start"===d?x-h-c:"center"===d?x-(h+n/2)+N/2:"end"===d?x-o+A+N:S(h,o,n,c,A+N,x,x+w,w);let{scrollLeft:e,scrollTop:s}=t;_=0===F?0:Math.max(0,Math.min(s+_/F,t.scrollHeight-i/F+I)),k=0===j?0:Math.max(0,Math.min(e+k/j,t.scrollWidth-n/j+N)),L+=s-_,x+=e-k}D.push({el:t,top:_,left:k})}return D})(e,t),n=0;for(let e of i){let t=e.el,i=Math.abs(e.top-t.scrollTop);n+=Math.abs(e.left-t.scrollLeft)+i}return n}async function W(e,t){if(e.some(F))return;let i=null,n=1/0;for(let t of e){let e=$(t,{scrollMode:"if-needed",block:"center",inline:"nearest"});e<n&&H(t)&&(n=e,i=t)}i&&(i.scrollIntoView({behavior:"smooth",block:"center"}),await U(i,t))}function H(e){if(!e)return!1;let t=window.getComputedStyle(e);return"none"!==t.display&&"hidden"!==t.visibility&&"0"!==t.opacity&&(0!==e.offsetWidth||0!==e.offsetHeight)&&function e(t){if(!t)return!0;let i=window.getComputedStyle(t);return"none"!==i.display&&"hidden"!==i.visibility&&"0"!==i.opacity&&e(t.parentElement)}(e.parentElement)}async function U(e,t){I(P(e))?(await new Promise((i,n)=>{let r;if(t.aborted)return void n(new DOMException("Aborted","AbortError"));let o=()=>{if(t.aborted){cancelAnimationFrame(r),n(new DOMException("Aborted","AbortError"));return}1>Math.abs($(e,{scrollMode:"if-needed",block:"center",inline:"nearest"}))?i():r=requestAnimationFrame(o)};r=requestAnimationFrame(o)}),await D(100,t)):await D(500,t)}var z=((e,t,i,n)=>{if(t&&"object"==typeof t||"function"==typeof t)for(let r of s(t))d.call(e,r)||r===i||o(e,r,{get:()=>t[r],enumerable:!(n=l(t,r))||n.enumerable});return e})(o(null!=(t=C())?r(a(t)):{},"default",{value:t,enumerable:!0}),t);function V(e,t){let i=e.match(t);return i&&i.groups?{environment:i.groups.environment||"__PRIMARY__",itemTypeId:i.groups.item_type_id,itemId:i.groups.item_id,fieldPath:i.groups.field_path}:null}function K(e){let t=Math.round(100*function(e){let t=0,i=.5,n=0;for(;i-t>.001;){let r=(t+i)/2,[o,l,s]=function(e,t){let i=Math.min(t,1-t),n=n=>{let r=(n+e/30)%12;return t-i*Math.max(-1,Math.min(r-3,Math.min(9-r,1)))};return[Math.round(255*n(0)),Math.round(255*n(8)),Math.round(255*n(4))]}(e,r);1.05/(function(e,t,i){let n=e=>e<=.03928?e/12.92:Math.pow((e+.055)/1.055,2.4);return .2126*n(e/255)+.7152*n(t/255)+.0722*n(i/255)}(o,l,s)+.05)>=3.5?(n=r,t=r+.001):i=r-.001}return n}(e));return{borderColor:`hsl(${e}, 100%, ${t}%)`,backgroundColor:`hsla(${e}, 100%, ${t}%, 0.15)`}}function Y(e){let t=null,i=null,n=()=>{t=null,i&&(e(...i),i=null)},r=(...e)=>{i=e,null==t&&(t=window.requestAnimationFrame(n))};return r.cancel=()=>{null!=t&&(window.cancelAnimationFrame(t),t=null),i=null},r}var G=class{constructor(e){this.doc=e,this.callbacks=new Set,this.running=!1,this.rafHandler=Y(()=>{for(let e of Array.from(this.callbacks))try{e()}catch(e){}}),this.onEvent=()=>{this.rafHandler()}}startIfNeeded(){if(this.running)return;let e=I(this.doc);e&&(e.addEventListener("scroll",this.onEvent,{passive:!0,capture:!0}),e.addEventListener("resize",this.onEvent,{passive:!0,capture:!0})),this.doc.addEventListener("scroll",this.onEvent,{passive:!0,capture:!0}),this.running=!0}stopIfIdle(){if(!this.running||this.callbacks.size>0)return;let e=I(this.doc);e&&(e.removeEventListener("scroll",this.onEvent),e.removeEventListener("resize",this.onEvent)),this.doc.removeEventListener("scroll",this.onEvent),this.running=!1,this.rafHandler.cancel()}subscribe(e){return this.callbacks.add(e),this.startIfNeeded(),()=>{this.callbacks.delete(e),this.stopIfIdle()}}},q=new WeakMap,B=class{constructor(e){this.window=e,this.observer=null,this.callbacks=new WeakMap;const t=function(e){return e&&"ResizeObserver"in e?e.ResizeObserver:"u">typeof ResizeObserver?ResizeObserver:void 0}(this.window);t&&(this.observer=new t(e=>{for(let t of e){let e=this.callbacks.get(t.target);if(e)for(let t of e)t()}}))}observe(e,t){if(!this.observer)return()=>{};let i=this.callbacks.get(e);return i||(i=new Set,this.callbacks.set(e,i),this.observer.observe(e)),i.add(t),()=>{let i=this.callbacks.get(e);i&&(i.delete(t),0===i.size&&(this.callbacks.delete(e),this.observer?.unobserve(e)))}}},J=new WeakMap,X=class{constructor(e,t={}){this.targetElement=e,this.resizeUnobserve=null,this.scrollResizeUnsubscribe=null,this.pendingAnimationAbortController=null,this.onDispose=t.onDispose,this.showLabel=t.showLabel??!1,this.overlayColors=t.overlayColors??K(17),this.overlayElement=this.createOverlayElement(this.showLabel),document.body.appendChild(this.overlayElement);const i=function(e){let t=q.get(e);return t||(t=new G(e),q.set(e,t)),t}(this.document);this.scrollResizeUnsubscribe=i.subscribe(()=>{this.updatePosition()});const n=function(e){if(!e)return null;let t=J.get(e);return t||(t=new B(e),J.set(e,t)),t}(this.window);n&&(this.resizeUnobserve=n.observe(e,()=>{this.updatePosition()}))}show(){this.updatePosition()}get document(){return P(this.targetElement)}get window(){return I(this.document)}dispose(){this.onDispose?.(),this.scrollResizeUnsubscribe?.(),this.resizeUnobserve?.(),this.overlayElement.remove()}cancelPendingAnimation(){this.pendingAnimationAbortController?.abort()}async fadeIn(e=0,t){this.cancelPendingAnimation(),this.pendingAnimationAbortController=t||new AbortController;let{signal:i}=this.pendingAnimationAbortController;try{this.overlayElement.style.opacity="0",await j(),await D(e,i),this.overlayElement.style.opacity="1"}catch(e){}}async disposeWithFadeOut(e=0,t){this.cancelPendingAnimation(),this.pendingAnimationAbortController=t||new AbortController;let{signal:i}=this.pendingAnimationAbortController;try{await D(e,i),this.overlayElement.style.opacity="0",await D(250,i)}catch(e){}finally{this.dispose()}}createOverlayElement(e){let t=this.document.createElement("div");if(t.style.position="fixed",t.style.top="0",t.style.left="0",t.style.width="0",t.style.height="0",t.style.border=`2px solid ${this.overlayColors.borderColor}`,t.style.borderRadius=e?"6px 0 6px 6px":"6px",t.style.background=this.overlayColors.backgroundColor,t.style.boxSizing="border-box",t.style.pointerEvents="none",t.style.zIndex="2147483646",t.style.display="block",t.style.opacity="1",t.style.transition="opacity 200ms ease-in-out",t.setAttribute("aria-hidden","true"),e){let e=this.document.createElement("div");e.textContent="Open in DatoCMS ↗",e.style.position="absolute",e.style.bottom="100%",e.style.right="-2px",e.style.backgroundColor=this.overlayColors.borderColor,e.style.color="white",e.style.padding="4px 12px",e.style.borderRadius="6px 6px 0 0",e.style.fontSize="13px",e.style.fontWeight="600",e.style.fontFamily="system-ui, -apple-system, sans-serif",e.style.whiteSpace="nowrap",e.style.setProperty("-webkit-font-smoothing","antialiased"),e.style.letterSpacing="normal",e.style.lineHeight="normal",e.style.textTransform="none",e.style.fontStyle="normal",e.setAttribute("aria-hidden","true"),t.appendChild(e)}return t}updatePosition(){let e=function(e){if("function"!=typeof e.getBoundingClientRect)return null;let t=e.getBoundingClientRect();return(0!==t.width||0!==t.height)&&H(e)?{top:t.top,left:t.left,width:t.width,height:t.height}:null}(this.targetElement);if(this.overlayElement.style.zIndex=this.computeOverlayZIndex(this.targetElement),!e){this.overlayElement.style.display="none";return}if(this.overlayElement.style.display="block",this.overlayElement.style.top=`${e.top-8}px`,this.overlayElement.style.left=`${e.left-8}px`,this.overlayElement.style.width=`${e.width+16}px`,this.overlayElement.style.height=`${e.height+16}px`,this.showLabel){let t=this.overlayElement.firstElementChild;t&&(e.width+16<150?(t.style.bottom="calc(100% + 10px)",t.style.right="auto",t.style.left="50%",t.style.transform="translateX(-50%)",t.style.borderRadius="6px",this.overlayElement.style.borderRadius="6px"):(t.style.bottom="100%",t.style.right="-2px",t.style.left="auto",t.style.transform="none",t.style.borderRadius="6px 6px 0 0",this.overlayElement.style.borderRadius="6px 0 6px 6px"))}}computeOverlayZIndex(e){if(!this.window)return"0";let t=e,i=null;for(;t&&t instanceof this.window.Element;){let e=this.window.getComputedStyle(t).zIndex;if("auto"!==e){let t=Number(e);Number.isFinite(t)&&(i=t)}t=t.parentElement}return null!==i?String(i):"0"}},Z="data-datocms-auto-content-link-url",Q="data-datocms-content-link-url",ee="data-datocms-content-link-group",et="data-datocms-content-link-source",ei=`[${Q}], [${Z}]`;function en(e){if(!e||!(e instanceof Element))return null;let t=e.closest(ei);if(!t)return null;let i=t.getAttribute(Q)||t.getAttribute(Z);return i?{element:t,editUrl:i}:null}var er=class{constructor(e,t,i=()=>!1,n){this.document=e,this.onEditClick=t,this.shouldShowLabel=i,this.overlayColors=n,this.highlightOverlay=null,this.listenerAbortController=null,this.throttledOnPointerMove=Y(e=>this.immediateOnPointerMoveEvent(e))}isActive(){return!!this.listenerAbortController}activate(){if(this.isActive())return;this.listenerAbortController=new AbortController;let e={capture:!0,signal:this.listenerAbortController.signal};this.document.addEventListener("pointerover",this.throttledOnPointerMove,e),this.document.addEventListener("pointermove",this.throttledOnPointerMove,e),this.document.addEventListener("pointerleave",e=>this.onPointerLeave(e),e),this.document.addEventListener("click",e=>this.onClick(e),e),this.document.addEventListener("focusin",e=>this.onFocusIn(e),e),this.document.addEventListener("focusout",()=>this.onFocusOut(),e),this.document.addEventListener("keydown",e=>this.onKeyDown(e),e)}immediateOnPointerMoveEvent(e){if(!_(e))return;let t=en(e.target);this.highlightElement(t?.element)}onPointerLeave(e){!_(e)||en(e.relatedTarget)||this.highlightElement(null)}onFocusIn(e){let t=en(e.target);this.highlightElement(t?.element)}onKeyDown(e){if(!N(e)||"Enter"!==e.key&&" "!==e.key&&"Spacebar"!==e.key)return;let t=en(this.document.activeElement);t&&(this.highlightElement(t.element),e.preventDefault(),e.stopPropagation(),this.onEditClick(t.editUrl))}onClick(e){if(!k(e)||0!==e.button)return;let t=en(e.target);t&&(this.highlightElement(t.element),e.preventDefault(),e.stopPropagation(),this.onEditClick(t.editUrl))}onFocusOut(){this.highlightElement(null)}highlightElement(e){let t=e&&!e.isConnected?null:e;if((!this.highlightOverlay||this.highlightOverlay.targetElement!==t)&&(this.highlightOverlay&&(this.highlightOverlay.dispose(),this.highlightOverlay=null),t)){let e=t.style.cursor;t.style.cursor="pointer",this.highlightOverlay=new X(t,{onDispose:()=>{t.style.cursor=e},showLabel:this.shouldShowLabel(),overlayColors:this.overlayColors}),this.highlightOverlay.show()}}deactivate(){this.isActive()&&(this.listenerAbortController.abort(),this.listenerAbortController=null,this.throttledOnPointerMove.cancel(),this.highlightOverlay?.dispose(),this.highlightOverlay=null)}},eo={0:8203,1:8204,2:8205,3:8290,4:8291,5:8288,6:65279,7:8289,8:119155,9:119156,a:119157,b:119158,c:119159,d:119160,e:119161,f:119162},el={0:8203,1:8204,2:8205,3:65279},es=[,,,,].fill(String.fromCodePoint(el[0])).join(""),ea=Object.fromEntries(Object.entries(el).map(e=>e.reverse())),ed=Object.fromEntries(Object.entries(eo).map(e=>e.reverse())),eh=`${Object.values(eo).map(e=>`\\u{${e.toString(16)}}`).join("")}`,eu=RegExp(`[${eh}]{4,}`,"gu"),ec=class{constructor(e,t,i=!1){this.root=e,this.onStamp=t,this.stripStega=i,this.pendingElementsToStamp=new Set,this.scheduleStamping=function(e){let t=!1,i="function"==typeof queueMicrotask?queueMicrotask:e=>Promise.resolve().then(e);return()=>{t||(t=!0,i(()=>{t=!1,e()}))}}(()=>this.instantStampPendingElements()),this.observer=new MutationObserver(e=>this.handleMutations(e)),this.observer.observe(this.root,{subtree:!0,childList:!0,characterData:!0,attributes:!0,attributeFilter:["alt",et]}),this.instantStampPendingElements(!0)}dispose(){for(let e of(this.observer.disconnect(),this.pendingElementsToStamp.clear(),this.root.querySelectorAll(`[${Z}]`)))e.removeAttribute(Z)}handleMutations(e){let t=!1;for(let i of e)if("characterData"===i.type){let e=i.target,n=e.parentElement??e.parentNode??this.root;this.pendingElementsToStamp.add(n),t=!0}else if("attributes"===i.type&&"alt"===i.attributeName){let e=i.target;this.pendingElementsToStamp.add(e.parentElement??this.root),t=!0}else if("attributes"===i.type&&i.attributeName===et){let e=i.target;this.pendingElementsToStamp.add(e.parentElement??this.root),t=!0}else if("childList"===i.type){for(let e of(this.pendingElementsToStamp.add(i.target),i.addedNodes))(e.nodeType===Node.ELEMENT_NODE||e.nodeType===Node.DOCUMENT_FRAGMENT_NODE)&&this.pendingElementsToStamp.add(e);t=!0}t&&this.scheduleStamping()}instantStampPendingElements(e=!1){let t=0===this.pendingElementsToStamp.size?[this.root]:Array.from(this.pendingElementsToStamp);this.pendingElementsToStamp.clear();let i=[];for(let e of t){let t=this.stampElement(e);i.push(t)}let n=1===i.length?i[0]:{appliedStamps:i.reduce((e,t)=>{for(let[i,n]of t.appliedStamps.entries())e.set(i,n);return e},new Map),scope:this.root};e&&0===n.appliedStamps.size&&console.warn("[@datocms/content-link] No editable elements were detected after initialization. Make sure that Content Link headers are enabled in your GraphQL requests! If you're hydrating/streaming, do not replace the server-rendered nodes that carry stega-encoded data: reuse the same DOM element!"),0!==i.length&&this.onStamp(n)}stampElement(e){let t=P(e);if(!t)return{appliedStamps:new Map,scope:e};let i=new Map,n=t.createTreeWalker(e,NodeFilter.SHOW_TEXT),r=n.nextNode();for(;r;){if(!(r instanceof Text)){r=n.nextNode();continue}let e=r.nodeValue??"",t=r.parentElement;if(t&&this.isInsideExcludedTag(t)){r=n.nextNode();continue}let o=this.addStampingAttributesTargetAndReturnStrippedValue(e,t,i);this.stripStega&&void 0!==o&&(r.nodeValue=o),r=n.nextNode()}for(let t of e.querySelectorAll("img[alt]")){let e=t.getAttribute("alt"),n=this.addStampingAttributesTargetAndReturnStrippedValue(e,t,i);this.stripStega&&void 0!==n&&t.setAttribute("alt",n)}for(let t of e.querySelectorAll(`[${et}]`)){let e=t.getAttribute(et);this.addStampingAttributesTargetAndReturnStrippedValue(e,t,i),this.stripStega&&t.removeAttribute(et)}return{appliedStamps:i,scope:e}}addStampingAttributesTargetAndReturnStrippedValue(e,t,i){let n,r;if(!e||!t)return;try{var o,l;if(!(n={cleaned:e.replace(eu,""),encoded:(null==(o=e.match(eu))?void 0:o[0])||""}).encoded||(l=r=function(e){let t=e.match(eu);if(t)return function(e,t=!1){let i=Array.from(e);if(i.length%2==0){if(i.length%4||!e.startsWith(es))return function(e,t){var i;let n=[];for(let t=.5*e.length;t--;){let i=`${ed[e[2*t].codePointAt(0)]}${ed[e[2*t+1].codePointAt(0)]}`;n.unshift(String.fromCharCode(parseInt(i,16)))}let r=[],o=[n.join("")],l=10;for(;o.length;){let e=o.shift();try{if(r.push(JSON.parse(e)),t)break}catch(n){if(!l--)throw n;let t=+(null==(i=n.message.match(/\sposition\s(\d+)$/))?void 0:i[1]);if(!t)throw n;o.unshift(e.substring(0,t),e.substring(t))}}return r}(i,t)}else throw Error("Encoded data has invalid length");let n=[];for(let e=.25*i.length;e--;){let t=i.slice(4*e,4*e+4).map(e=>ea[e.codePointAt(0)]).join("");n.unshift(String.fromCharCode(parseInt(t,4)))}if(t){n.shift();let e=n.indexOf("\0");return -1===e&&(e=n.length),[JSON.parse(n.slice(0,e).join(""))]}return n.join("").split("\0").filter(Boolean).map(e=>JSON.parse(e))}(t[0],!0)[0]}(n.encoded),"object"!=typeof l||null===l||!("origin"in l)||"string"!=typeof l.origin||!("href"in l)||"string"!=typeof l.href))return}catch(e){return}let s=this.maybeFindGroup(t);if(!s)return;let a=i.get(s);return a&&a!==r.href&&this.warnCollision(s,a,t,r.href),s.getAttribute(Z)!==r.href&&(s.setAttribute(Z,r.href),i.set(s,r.href)),this.stripStega||t.setAttribute("data-datocms-contains-stega",""),n.cleaned}warnCollision(e,t,i,n){console.warn(`[@datocms/content-link] Multiple stega-encoded payloads resolved to the same DOM element. Previous URL: ${t}. Incoming URL: ${n}. Wrap each encoded block in its own element (for example by adding ${ee}).`,e,i)}isInsideExcludedTag(e){if(!e)return!1;let t=e;for(;t;){if("SCRIPT"===t.tagName||"STYLE"===t.tagName)return!0;t=t.parentElement}return!1}maybeFindGroup(e){let t=e;for(;t;){if(t.hasAttribute(ee))return t;if(t.hasAttribute("data-datocms-content-link-boundary"))break;t=t.parentElement}return e}},ep=class{constructor(e){this.doc=e.doc}emitStamped(e){this.dispatch("datocms:visual-editing:stamped",e)}emitClickToEditToggle(e){this.dispatch("datocms:click-to-edit:toggle",e)}dispatch(e,t){let i=this.doc.defaultView?.CustomEvent??("u">typeof CustomEvent?CustomEvent:void 0);if(i)try{let n=new i(e,{detail:t});this.doc.dispatchEvent(n)}catch{}}},ef=class{constructor(e,t){this.wrapperElement=e,this.overlayColors=t,this.overlays=[],this.pendingAnimationAbortController=null,this.disposed=!1}async flash(e){this.disposed||(this.fadeIn(e),await x(1500),this.fadeOut())}async fadeIn(e){if(this.disposed)return;await j();let t=Array.from(this.wrapperElement.querySelectorAll(ei));if(0===t.length)return;this.instantlyDisposeOverlays();let i=new AbortController,{signal:n}=i;this.pendingAnimationAbortController=i;try{e&&await W(t,n);let r=t.length;t.map((e,t)=>{let n=new X(e,{overlayColors:this.overlayColors});n.fadeIn(r<50?10*t:0,i),this.overlays.push(n)})}catch(e){}}fadeOut(){if(this.disposed)return;this.cancelPendingAnimation();let e=new AbortController,t=this.overlays.length;this.overlays.map((i,n)=>{i.disposeWithFadeOut(t<50?10*n:0,e)}),this.overlays=[]}dispose(){this.disposed||(this.disposed=!0,this.instantlyDisposeOverlays())}cancelPendingAnimation(){this.pendingAnimationAbortController?.abort()}instantlyDisposeOverlays(){this.cancelPendingAnimation(),this.overlays.forEach(e=>{e.cancelPendingAnimation(),e.dispose()}),this.overlays=[]}},em=class{constructor(e,t,i,n){this.wrapperElement=e,this.itemId=t,this.editUrlRegExp=i,this.overlayColors=n,this.overlays=[],this.pendingAnimationAbortController=null,this.disposed=!1}async flash(e){this.disposed||(await j(),this.fadeIn(e),await x(1500),await this.fadeOut())}async fadeIn(e){if(this.disposed)return;let t=this.wrapperElement.querySelectorAll(ei),i=new Set;for(let e of t){let t=e.getAttribute(Q)||e.getAttribute(Z);if(t){let n=V(t,this.editUrlRegExp);n&&n.itemId===this.itemId&&i.add(e)}}let n=Array.from(i);if(0===n.length)return;this.instantlyDisposeOverlays();let r=new AbortController,{signal:o}=r;this.pendingAnimationAbortController=r;try{e&&await W(n,o),n.map((e,t)=>{let i=new X(e,{overlayColors:this.overlayColors});i.fadeIn(10*t,r),this.overlays.push(i)})}catch(e){}}async fadeOut(){if(this.disposed)return;this.cancelPendingAnimation();let e=new AbortController,t=Promise.all(this.overlays.map((t,i)=>t.disposeWithFadeOut(10*i,e)));return this.overlays=[],await t}dispose(){this.disposed||(this.disposed=!0,this.instantlyDisposeOverlays())}cancelPendingAnimation(){this.pendingAnimationAbortController?.abort()}instantlyDisposeOverlays(){this.cancelPendingAnimation(),this.overlays.forEach(e=>{e.cancelPendingAnimation(),e.dispose()}),this.overlays=[]}},eg=class{constructor(e){this.flashItemManager=null,this.webPreviewsPluginConnection=null,this.disposed=!1,this.currentPath=M(document.location.toString()),this.wrapperElement=e.root??document,this.onNavigateTo=e.onNavigateTo,this.overlayColors=K(e.hue??17),this.eventsManager=new ep({doc:this.document}),this.clickToEditManager=new er(this.document,e=>this.handleEditClick(e),()=>null===this.webPreviewsPluginConnection,this.overlayColors),this.initializeWebPreviewsPluginConnection(),this.stampingManager=new ec(this.wrapperElement,e=>this.handleStampResult(e),e.stripStega??!1),this.flashAllManager=new ef(this.wrapperElement,this.overlayColors),this.listenerAbortController=new AbortController,this.document.addEventListener("keydown",e=>this.onKeyDown(e),{capture:!0,signal:this.listenerAbortController.signal}),this.document.addEventListener("keyup",e=>this.onKeyUp(e),{capture:!0,signal:this.listenerAbortController.signal}),this.document.addEventListener("click",e=>this.onClick(e),{capture:!0,signal:this.listenerAbortController.signal}),this.document.addEventListener("visibilitychange",()=>{document.hidden&&this.disableTemporaryClickToEditState()},{signal:this.listenerAbortController.signal}),I(this.document)?.addEventListener("blur",()=>{this.disableTemporaryClickToEditState()},{signal:this.listenerAbortController.signal})}get document(){return P(this.wrapperElement)}dispose(){this.disposed||(this.disposed=!0,this.clickToEditManager.deactivate(),this.stampingManager.dispose(),this.flashAllManager.dispose(),this.flashItemManager?.dispose(),this.webPreviewsPluginConnection?.destroy(),this.listenerAbortController.abort())}isDisposed(){return this.disposed}setCurrentPath(e){this.currentPath=M(e)}enableClickToEdit(e){!this.disposed&&(this.clickToEditManager.isActive()||(this.clickToEditManager.activate(),this.eventsManager.emitClickToEditToggle(!0),this.notifyStateChangeToWebPreviewsPlugin()),e&&this.flashAllManager.flash(e.scrollToNearestTarget))}disableClickToEdit(){this.clickToEditManager.isActive()&&!this.disposed&&(this.clickToEditManager.deactivate(),this.eventsManager.emitClickToEditToggle(!1),this.notifyStateChangeToWebPreviewsPlugin())}isClickToEditEnabled(){return this.clickToEditManager.isActive()&&!this.disposed}flashAll(e=!1){this.disposed||this.flashAllManager.flash(e)}async flashItem(e,t=!1){if(this.disposed||!this.webPreviewsPluginConnection)return;this.flashItemManager?.dispose();let i=new em(this.wrapperElement,e,this.webPreviewsPluginConnection.editUrlRegExp,this.overlayColors),n=i.flash(t);this.flashItemManager=i,await n,i.dispose()}handleStampResult(e){this.eventsManager.emitStamped(e),this.notifyStateChangeToWebPreviewsPlugin()}async notifyStateChangeToWebPreviewsPlugin(){if(!this.webPreviewsPluginConnection)return;let e=this.wrapperElement.querySelectorAll(ei),t=new Set;for(let i of e){let e=i.getAttribute(Q)||i.getAttribute(Z);e&&t.add(e)}await this.webPreviewsPluginConnection.parent.onStateChange({clickToEditEnabled:this.clickToEditManager.isActive(),path:this.currentPath,itemIdsPerEnvironment:function(e,t){let i={};for(let n of e){let e=V(n,t);if(e){let t=e.environment;i[t]||(i[t]=new Set),i[t].add(e.itemId)}}let n={};for(let[e,t]of Object.entries(i))n[e]=Array.from(t);return n}(Array.from(t),this.webPreviewsPluginConnection.editUrlRegExp)})}handleEditClick(e){if(this.webPreviewsPluginConnection){let t=V(e,this.webPreviewsPluginConnection.editUrlRegExp);t&&this.webPreviewsPluginConnection.parent.openItem(t)}else{let t=this.document.defaultView??("u">typeof window?window:null);t?.open(e,"_blank","noopener,noreferrer")}}async initializeWebPreviewsPluginConnection(){let e;if(!("u">typeof window&&window.parent!==window))return;let t=z.default.connectToParent({timeout:2e4,methods:{navigateTo:e=>{this.onNavigateTo?.(e.path)},flashAll:e=>{this.flashAll(e.scrollToNearestTarget)},flashItem:e=>{this.flashItem(e.itemId,e.scrollToNearestTarget)},setClickToEditEnabled:e=>{e.enabled?this.enableClickToEdit(e.flash):this.disableClickToEdit()}}}),i=await t.promise;if(this.disposed)return void t.destroy();let{editUrlRegExp:n}=await i.onInit();e=setInterval(()=>i.onPing(),1e3),this.webPreviewsPluginConnection={parent:i,destroy:()=>{clearInterval(e),t.destroy()},editUrlRegExp:new RegExp(n.source,n.flags)},await this.notifyStateChangeToWebPreviewsPlugin()}onKeyDown(e){N(e)&&"Alt"===e.key&&this.isTopLevelWindowOrInWebPreviewsIframe&&(L(this.document)||this.enableTemporaryClickToEditState())}onKeyUp(e){N(e)&&"Alt"===e.key&&this.isTopLevelWindowOrInWebPreviewsIframe&&(L(this.document)||this.disableTemporaryClickToEditState())}onClick(e){if(k(e)&&0===e.button&&this.temporaryState&&!this.temporaryState.enabled&&e.altKey){e.preventDefault();let t=new MouseEvent("click",{bubbles:!0,cancelable:!0,view:window});e.target.dispatchEvent(t)}}enableTemporaryClickToEditState(){this.clickToEditManager.isActive()?(this.temporaryState={enabled:!1},this.disableClickToEdit(),this.flashAllManager.fadeOut()):(this.temporaryState={enabled:!0},this.enableClickToEdit(),this.flashAllManager.fadeIn(!0))}disableTemporaryClickToEditState(){this.temporaryState&&(this.temporaryState.enabled?(this.disableClickToEdit(),this.flashAllManager.fadeOut()):(this.enableClickToEdit(),this.flashAllManager.flash(!0)),this.temporaryState=void 0)}get isTopLevelWindowOrInWebPreviewsIframe(){let e=this.document.defaultView??("u">typeof window?window:null);return this.webPreviewsPluginConnection||e&&e.parent===e}},eE=class{constructor(){this.disposed=!1}dispose(){this.disposed=!0}isDisposed(){return this.disposed}setCurrentPath(){}enableClickToEdit(){}disableClickToEdit(){}isClickToEditEnabled(){return!1}flashAll(){}},ev=function(e,t){var i={};for(var n in e)Object.prototype.hasOwnProperty.call(e,n)&&0>t.indexOf(n)&&(i[n]=e[n]);if(null!=e&&"function"==typeof Object.getOwnPropertySymbols)for(var r=0,n=Object.getOwnPropertySymbols(e);r<n.length;r++)0>t.indexOf(n[r])&&Object.prototype.propertyIsEnumerable.call(e,n[r])&&(i[n[r]]=e[n[r]]);return i};function ey(e){let{currentPath:t,enableClickToEdit:i,stripStega:r,hue:o}=e,{enableClickToEdit:l,setCurrentPath:s}=function(e={}){let{enabled:t=!0,onNavigateTo:i,root:r,hue:o}=e,l=(0,n.useRef)(null),s=(0,n.useRef)(i);(0,n.useEffect)(()=>{s.current=i},[i]),(0,n.useEffect)(()=>{if(!0!==t&&("object"!=typeof t||null===t)){l.current&&(l.current.dispose(),l.current=null);return}let e="object"==typeof t&&t.stripStega,i=function(e={}){return"u">typeof window&&"u">typeof document?new eg(e):new eE}({onNavigateTo:e=>{var t;return null==(t=s.current)?void 0:t.call(s,e)},root:(null==r?void 0:r.current)||void 0,stripStega:e,hue:o});return l.current=i,()=>{i.dispose(),l.current=null}},[t,r,o]);let a=(0,n.useCallback)(e=>{var t;(null==e||!e.hoverOnly||"u">typeof window&&window.matchMedia("(hover: hover)").matches)&&(null==(t=l.current)||t.enableClickToEdit((null==e?void 0:e.scrollToNearestTarget)?{scrollToNearestTarget:e.scrollToNearestTarget}:void 0))},[]),d=(0,n.useCallback)(()=>{var e;null==(e=l.current)||e.disableClickToEdit()},[]),h=(0,n.useCallback)(()=>{var e,t;return null!=(t=null==(e=l.current)?void 0:e.isClickToEditEnabled())&&t},[]),u=(0,n.useCallback)(e=>{var t;null==(t=l.current)||t.flashAll(e)},[]),c=(0,n.useCallback)(e=>{var t;null==(t=l.current)||t.setCurrentPath(e)},[]);return{controller:l.current,enableClickToEdit:a,disableClickToEdit:d,isClickToEditEnabled:h,flashAll:u,setCurrentPath:c}}(Object.assign(Object.assign({},ev(e,["currentPath","enableClickToEdit","stripStega","hue"])),{enabled:void 0===r||{stripStega:r},hue:o}));return(0,n.useEffect)(()=>{void 0!==t&&s(t)},[t,s]),(0,n.useEffect)(()=>{!i||"u">typeof window&&window.parent===window&&l(!0===i?void 0:i)},[i,l]),null}var eb=e.i(18566);e.s(["default",0,function(){let e=(0,eb.useRouter)(),t=(0,eb.usePathname)();return(0,i.jsx)(ey,{onNavigateTo:t=>{e.push(t)},currentPath:t,enableClickToEdit:{hoverOnly:!0}})}],63587)},41110,e=>{"use strict";var t=e.i(43476);e.s(["default",0,function({draftModeEnabled:e}){async function i(){let t;if(e)t=await fetch("/api/draft-mode/disable");else{let e=prompt("To enter Draft Mode, you need to insert the SECRET_API_TOKEN:","secretTokenProtectingWebhookEndpointsFromBeingCalledByAnyone");if(!e)return;t=await fetch(`/api/draft-mode/enable?token=${e}`)}t.ok?document.location.reload():alert("Could not complete the operation!")}return e?(0,t.jsx)("button",{type:"button",onClick:i,"data-tooltip":"Return to viewing published content",children:"Disable Draft Mode"}):(0,t.jsx)("button",{type:"button",onClick:i,"data-tooltip":"Preview unpublished changes from DatoCMS",children:"Enable Draft Mode"})}])}]);
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push([
+  'object' == typeof document ? document.currentScript : void 0,
+  63587,
+  (e) => {
+    'use strict';
+    let t;
+    var i = e.i(43476),
+      n = e.i(71645),
+      r = Object.create,
+      o = Object.defineProperty,
+      l = Object.getOwnPropertyDescriptor,
+      s = Object.getOwnPropertyNames,
+      a = Object.getPrototypeOf,
+      d = Object.prototype.hasOwnProperty,
+      h = (e, t) =>
+        function () {
+          return (t || (0, e[s(e)[0]])((t = { exports: {} }).exports, t), t.exports);
+        },
+      u = h({
+        'node_modules/penpal/lib/constants.js'(e) {
+          (Object.defineProperty(e, '__esModule', { value: !0 }),
+            (e.DATA_CLONE_ERROR =
+              e.MESSAGE =
+              e.REJECTED =
+              e.FULFILLED =
+              e.REPLY =
+              e.CALL =
+              e.HANDSHAKE_REPLY =
+              e.HANDSHAKE =
+                void 0),
+            (e.HANDSHAKE = 'handshake'),
+            (e.HANDSHAKE_REPLY = 'handshake-reply'),
+            (e.CALL = 'call'),
+            (e.REPLY = 'reply'),
+            (e.FULFILLED = 'fulfilled'),
+            (e.REJECTED = 'rejected'),
+            (e.MESSAGE = 'message'),
+            (e.DATA_CLONE_ERROR = 'DataCloneError'));
+        },
+      }),
+      c = h({
+        'node_modules/penpal/lib/errorCodes.js'(e) {
+          (Object.defineProperty(e, '__esModule', { value: !0 }),
+            (e.ERR_NO_IFRAME_SRC =
+              e.ERR_NOT_IN_IFRAME =
+              e.ERR_CONNECTION_TIMEOUT =
+              e.ERR_CONNECTION_DESTROYED =
+                void 0),
+            (e.ERR_CONNECTION_DESTROYED = 'ConnectionDestroyed'),
+            (e.ERR_CONNECTION_TIMEOUT = 'ConnectionTimeout'),
+            (e.ERR_NOT_IN_IFRAME = 'NotInIframe'),
+            (e.ERR_NO_IFRAME_SRC = 'NoIframeSrc'));
+        },
+      }),
+      p = h({
+        'node_modules/penpal/lib/createDestructor.js'(e, t) {
+          (Object.defineProperty(e, '__esModule', { value: !0 }),
+            (e.default = void 0),
+            (e.default = () => {
+              let e = [],
+                t = !1;
+              return {
+                destroy() {
+                  ((t = !0),
+                    e.forEach((e) => {
+                      e();
+                    }));
+                },
+                onDestroy(i) {
+                  t ? i() : e.push(i);
+                },
+              };
+            }),
+            (t.exports = e.default));
+        },
+      }),
+      f = h({
+        'node_modules/penpal/lib/getOriginFromSrc.js'(e, t) {
+          (Object.defineProperty(e, '__esModule', { value: !0 }), (e.default = void 0));
+          var i = { 'http:': '80', 'https:': '443' },
+            n = /^(https?:)?\/\/([^/:]+)?(:(\d+))?/,
+            r = ['file:', 'data:'];
+          ((e.default = (e) => {
+            let t, o, l;
+            if (e && r.find((t) => e.startsWith(t))) return 'null';
+            let s = document.location,
+              a = n.exec(e);
+            a
+              ? ((t = a[1] ? a[1] : s.protocol), (o = a[2]), (l = a[4]))
+              : ((t = s.protocol), (o = s.hostname), (l = s.port));
+            let d = l && l !== i[t] ? `:${l}` : '';
+            return `${t}//${o}${d}`;
+          }),
+            (t.exports = e.default));
+        },
+      }),
+      m = h({
+        'node_modules/penpal/lib/createLogger.js'(e, t) {
+          (Object.defineProperty(e, '__esModule', { value: !0 }),
+            (e.default = void 0),
+            (e.default = (e) =>
+              function () {
+                if (e) {
+                  for (var t = arguments.length, i = Array(t), n = 0; n < t; n++)
+                    i[n] = arguments[n];
+                  console.log('[Penpal]', ...i);
+                }
+              }),
+            (t.exports = e.default));
+        },
+      }),
+      g = h({
+        'node_modules/penpal/lib/errorSerialization.js'(e) {
+          (Object.defineProperty(e, '__esModule', { value: !0 }),
+            (e.deserializeError = e.serializeError = void 0),
+            (e.serializeError = (e) => {
+              let t = e.name;
+              return { name: t, message: e.message, stack: e.stack };
+            }),
+            (e.deserializeError = (e) => {
+              let t = Error();
+              return (Object.keys(e).forEach((i) => (t[i] = e[i])), t);
+            }));
+        },
+      }),
+      E = h({
+        'node_modules/penpal/lib/connectCallReceiver.js'(e, t) {
+          (Object.defineProperty(e, '__esModule', { value: !0 }), (e.default = void 0));
+          var i = u(),
+            n = g();
+          ((e.default = (e, t, r) => {
+            let o = e.localName,
+              l = e.local,
+              s = e.remote,
+              a = e.originForSending,
+              d = e.originForReceiving,
+              h = !1;
+            r(`${o}: Connecting call receiver`);
+            let u = (e) => {
+              if (e.source !== s || e.data.penpal !== i.CALL) return;
+              if (e.origin !== d)
+                return void r(
+                  `${o} received message from origin ${e.origin} which did not match expected origin ${d}`,
+                );
+              let l = e.data,
+                u = l.methodName,
+                c = l.args,
+                p = l.id;
+              r(`${o}: Received ${u}() call`);
+              let f = (e) => (t) => {
+                if ((r(`${o}: Sending ${u}() reply`), h))
+                  return void r(`${o}: Unable to send ${u}() reply due to destroyed connection`);
+                let l = { penpal: i.REPLY, id: p, resolution: e, returnValue: t };
+                e === i.REJECTED &&
+                  t instanceof Error &&
+                  ((l.returnValue = (0, n.serializeError)(t)), (l.returnValueIsError = !0));
+                try {
+                  s.postMessage(l, a);
+                } catch (e) {
+                  throw (
+                    e.name === i.DATA_CLONE_ERROR &&
+                      s.postMessage(
+                        {
+                          penpal: i.REPLY,
+                          id: p,
+                          resolution: i.REJECTED,
+                          returnValue: (0, n.serializeError)(e),
+                          returnValueIsError: !0,
+                        },
+                        a,
+                      ),
+                    e
+                  );
+                }
+              };
+              new Promise((e) => e(t[u].apply(t, c))).then(f(i.FULFILLED), f(i.REJECTED));
+            };
+            return (
+              l.addEventListener(i.MESSAGE, u),
+              () => {
+                ((h = !0), l.removeEventListener(i.MESSAGE, u));
+              }
+            );
+          }),
+            (t.exports = e.default));
+        },
+      }),
+      v = h({
+        'node_modules/penpal/lib/generateId.js'(e, t) {
+          (Object.defineProperty(e, '__esModule', { value: !0 }), (e.default = void 0));
+          var i = 0;
+          ((e.default = () => ++i), (t.exports = e.default));
+        },
+      }),
+      y = h({
+        'node_modules/penpal/lib/connectCallSender.js'(e, t) {
+          (Object.defineProperty(e, '__esModule', { value: !0 }), (e.default = void 0));
+          var i,
+            n = u(),
+            r = c(),
+            o = (i = v()) && i.__esModule ? i : { default: i },
+            l = g();
+          ((e.default = (e, t, i, s, a) => {
+            let d = t.localName,
+              h = t.local,
+              u = t.remote,
+              c = t.originForSending,
+              p = t.originForReceiving,
+              f = !1;
+            return (
+              a(`${d}: Connecting call sender`),
+              i.reduce(
+                (e, t) => (
+                  (e[t] = function () {
+                    let e;
+                    for (var i = arguments.length, m = Array(i), g = 0; g < i; g++)
+                      m[g] = arguments[g];
+                    a(`${d}: Sending ${t}() call`);
+                    try {
+                      u.closed && (e = !0);
+                    } catch (t) {
+                      e = !0;
+                    }
+                    if ((e && s(), f)) {
+                      let e = Error(`Unable to send ${t}() call due to destroyed connection`);
+                      throw ((e.code = r.ERR_CONNECTION_DESTROYED), e);
+                    }
+                    return new Promise((e, i) => {
+                      let r = (0, o.default)(),
+                        s = (o) => {
+                          if (o.source !== u || o.data.penpal !== n.REPLY || o.data.id !== r)
+                            return;
+                          if (o.origin !== p)
+                            return void a(
+                              `${d} received message from origin ${o.origin} which did not match expected origin ${p}`,
+                            );
+                          (a(`${d}: Received ${t}() reply`), h.removeEventListener(n.MESSAGE, s));
+                          let c = o.data.returnValue;
+                          (o.data.returnValueIsError && (c = (0, l.deserializeError)(c)),
+                            (o.data.resolution === n.FULFILLED ? e : i)(c));
+                        };
+                      (h.addEventListener(n.MESSAGE, s),
+                        u.postMessage({ penpal: n.CALL, id: r, methodName: t, args: m }, c));
+                    });
+                  }),
+                  e
+                ),
+                e,
+              ),
+              () => {
+                f = !0;
+              }
+            );
+          }),
+            (t.exports = e.default));
+        },
+      }),
+      b = h({
+        'node_modules/penpal/lib/connectToChild.js'(e, t) {
+          (Object.defineProperty(e, '__esModule', { value: !0 }), (e.default = void 0));
+          var i = u(),
+            n = c(),
+            r = d(p()),
+            o = d(f()),
+            l = d(m()),
+            s = d(E()),
+            a = d(y());
+          function d(e) {
+            return e && e.__esModule ? e : { default: e };
+          }
+          ((e.default = (e) => {
+            let t = e.iframe,
+              d = e.methods,
+              h = void 0 === d ? {} : d,
+              u = e.childOrigin,
+              c = e.timeout,
+              p = e.debug,
+              f = (0, l.default)(p),
+              m = window,
+              g = (0, r.default)(),
+              E = g.destroy,
+              v = g.onDestroy;
+            if (!u) {
+              if (!t.src && !t.srcdoc) {
+                let e = Error('Iframe must have src or srcdoc property defined.');
+                throw ((e.code = n.ERR_NO_IFRAME_SRC), e);
+              }
+              u = (0, o.default)(t.src);
+            }
+            let y = 'null' === u ? '*' : u;
+            return {
+              promise: new Promise((e, r) => {
+                let o, l, d;
+                void 0 !== c &&
+                  (o = setTimeout(() => {
+                    let e = Error(`Connection to child timed out after ${c}ms`);
+                    ((e.code = n.ERR_CONNECTION_TIMEOUT), r(e), E());
+                  }, c));
+                let p = {},
+                  g = (n) => {
+                    let r = t.contentWindow;
+                    if (n.source !== r || n.data.penpal !== i.HANDSHAKE) return;
+                    if (n.origin !== u)
+                      return void f(
+                        `Parent received handshake from origin ${n.origin} which did not match expected origin ${u}`,
+                      );
+                    (f('Parent: Received handshake, sending reply'),
+                      n.source.postMessage(
+                        { penpal: i.HANDSHAKE_REPLY, methodNames: Object.keys(h) },
+                        y,
+                      ));
+                    let c = {
+                      localName: 'Parent',
+                      local: m,
+                      remote: r,
+                      originForSending: y,
+                      originForReceiving: u,
+                    };
+                    (d && d(),
+                      v((d = (0, s.default)(c, h, f))),
+                      l &&
+                        l.forEach((e) => {
+                          delete p[e];
+                        }),
+                      (l = n.data.methodNames),
+                      v((0, a.default)(p, c, l, E, f)),
+                      clearTimeout(o),
+                      e(p));
+                  };
+                (m.addEventListener(i.MESSAGE, g), f('Parent: Awaiting handshake'));
+                var b = setInterval(() => {
+                  document.contains(t) || (clearInterval(b), E());
+                }, 6e4);
+                v(() => {
+                  (m.removeEventListener(i.MESSAGE, g), clearInterval(b));
+                  let e = Error('Connection destroyed');
+                  ((e.code = n.ERR_CONNECTION_DESTROYED), r(e));
+                });
+              }),
+              destroy: E,
+            };
+          }),
+            (t.exports = e.default));
+        },
+      }),
+      w = h({
+        'node_modules/penpal/lib/connectToParent.js'(e, t) {
+          (Object.defineProperty(e, '__esModule', { value: !0 }), (e.default = void 0));
+          var i = u(),
+            n = c(),
+            r = a(p()),
+            o = a(E()),
+            l = a(y()),
+            s = a(m());
+          function a(e) {
+            return e && e.__esModule ? e : { default: e };
+          }
+          ((e.default = function () {
+            let e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {},
+              t = e.parentOrigin,
+              a = void 0 === t ? '*' : t,
+              d = e.methods,
+              h = void 0 === d ? {} : d,
+              u = e.timeout,
+              c = e.debug,
+              p = (0, s.default)(c);
+            if (window === window.top) {
+              let e = Error('connectToParent() must be called within an iframe');
+              throw ((e.code = n.ERR_NOT_IN_IFRAME), e);
+            }
+            let f = (0, r.default)(),
+              m = f.destroy,
+              g = f.onDestroy,
+              E = window,
+              v = E.parent;
+            return {
+              promise: new Promise((e, t) => {
+                let r;
+                void 0 !== u &&
+                  (r = setTimeout(() => {
+                    let e = Error(`Connection to parent timed out after ${u}ms`);
+                    ((e.code = n.ERR_CONNECTION_TIMEOUT), t(e), m());
+                  }, u));
+                let s = (t) => {
+                  try {
+                    clearTimeout();
+                  } catch (e) {
+                    return;
+                  }
+                  if (t.source !== v || t.data.penpal !== i.HANDSHAKE_REPLY) return;
+                  if ('*' !== a && a !== t.origin)
+                    return void p(
+                      `Child received handshake reply from origin ${t.origin} which did not match expected origin ${a}`,
+                    );
+                  (p('Child: Received handshake reply'), E.removeEventListener(i.MESSAGE, s));
+                  let n = {
+                      localName: 'Child',
+                      local: E,
+                      remote: v,
+                      originForSending: 'null' === t.origin ? '*' : t.origin,
+                      originForReceiving: t.origin,
+                    },
+                    d = {};
+                  (g((0, o.default)(n, h, p)),
+                    g((0, l.default)(d, n, t.data.methodNames, m, p)),
+                    clearTimeout(r),
+                    e(d));
+                };
+                (E.addEventListener(i.MESSAGE, s),
+                  g(() => {
+                    E.removeEventListener(i.MESSAGE, s);
+                    let e = Error('Connection destroyed');
+                    ((e.code = n.ERR_CONNECTION_DESTROYED), t(e));
+                  }),
+                  p('Child: Sending handshake'),
+                  v.postMessage({ penpal: i.HANDSHAKE, methodNames: Object.keys(h) }, a));
+              }),
+              destroy: m,
+            };
+          }),
+            (t.exports = e.default));
+        },
+      }),
+      C = h({
+        'node_modules/penpal/lib/index.js'(e, t) {
+          (Object.defineProperty(e, '__esModule', { value: !0 }), (e.default = void 0));
+          var i = o(b()),
+            n = o(w()),
+            r = c();
+          function o(e) {
+            return e && e.__esModule ? e : { default: e };
+          }
+          ((e.default = {
+            ERR_CONNECTION_DESTROYED: r.ERR_CONNECTION_DESTROYED,
+            ERR_CONNECTION_TIMEOUT: r.ERR_CONNECTION_TIMEOUT,
+            ERR_NOT_IN_IFRAME: r.ERR_NOT_IN_IFRAME,
+            ERR_NO_IFRAME_SRC: r.ERR_NO_IFRAME_SRC,
+            connectToChild: i.default,
+            connectToParent: n.default,
+          }),
+            (t.exports = e.default));
+        },
+      }),
+      A = (e) => 'object' == typeof e && null != e && 1 === e.nodeType,
+      T = (e, t) => (!t || 'hidden' !== e) && 'visible' !== e && 'clip' !== e,
+      O = (e, t) => {
+        if (e.clientHeight < e.scrollHeight || e.clientWidth < e.scrollWidth) {
+          let i,
+            n = getComputedStyle(e, null);
+          return (
+            T(n.overflowY, t) ||
+            T(n.overflowX, t) ||
+            (!!(i = ((e) => {
+              if (!e.ownerDocument || !e.ownerDocument.defaultView) return null;
+              try {
+                return e.ownerDocument.defaultView.frameElement;
+              } catch (e) {
+                return null;
+              }
+            })(e)) &&
+              (i.clientHeight < e.scrollHeight || i.clientWidth < e.scrollWidth))
+          );
+        }
+        return !1;
+      },
+      S = (e, t, i, n, r, o, l, s) =>
+        (o < e && l > t) || (o > e && l < t)
+          ? 0
+          : (o <= e && s <= i) || (l >= t && s >= i)
+            ? o - e - n
+            : (l > t && s < i) || (o < e && s > i)
+              ? l - t + r
+              : 0,
+      R = (e) => {
+        let t = e.parentElement;
+        return null == t ? e.getRootNode().host || null : t;
+      };
+    function P(e) {
+      let t = 'u' > typeof Document ? Document : void 0,
+        i = 'u' > typeof document ? document : void 0;
+      if (t && e instanceof t) return e;
+      let n = e.ownerDocument ?? i ?? null;
+      if (!n) throw Error('Unable to resolve document');
+      return n;
+    }
+    function M(e) {
+      let t = new URL(e, 'http://example.com');
+      return t.pathname + t.search + t.hash;
+    }
+    function _(e) {
+      return 'u' > typeof PointerEvent
+        ? e instanceof PointerEvent
+        : 'string' == typeof e.pointerType && 'mouse' === e.pointerType;
+    }
+    function k(e) {
+      return 'u' > typeof MouseEvent ? e instanceof MouseEvent : 'number' == typeof e.button;
+    }
+    function N(e) {
+      return 'u' > typeof KeyboardEvent ? e instanceof KeyboardEvent : 'string' == typeof e.key;
+    }
+    function I(e) {
+      return e.defaultView ?? ('u' > typeof window ? window : null);
+    }
+    function L(e) {
+      let t = e.activeElement;
+      if (!t) return !1;
+      let i = t.tagName;
+      return 'INPUT' === i || 'TEXTAREA' === i || 'SELECT' === i || t.isContentEditable;
+    }
+    function x(e) {
+      return new Promise((t) => setTimeout(t, e));
+    }
+    function D(e, t) {
+      return new Promise((i, n) => {
+        if (e <= 0) return void (t.aborted ? n(Error('Animation cancelled')) : i());
+        let r = () => {
+            (clearTimeout(o), t.removeEventListener('abort', r), n(Error('Animation cancelled')));
+          },
+          o = setTimeout(() => {
+            (t.removeEventListener('abort', r), i());
+          }, e);
+        t.addEventListener('abort', r);
+      });
+    }
+    async function j() {
+      return new Promise((e) =>
+        requestAnimationFrame(() => {
+          requestAnimationFrame(e);
+        }),
+      );
+    }
+    function F(e) {
+      let t = P(e),
+        i = e.getBoundingClientRect(),
+        n = I(t);
+      if (!n) return !1;
+      let r = n.innerHeight || t.documentElement.clientHeight,
+        o = n.innerWidth || t.documentElement.clientWidth;
+      return i.top < r && i.bottom > 0 && i.left < o && i.right > 0;
+    }
+    function $(e, t) {
+      let i = ((e, t) => {
+          var i, n, r, o;
+          let l;
+          if ('u' < typeof document) return [];
+          let {
+              scrollMode: s,
+              block: a,
+              inline: d,
+              boundary: h,
+              skipOverflowHiddenElements: u,
+            } = t,
+            c = 'function' == typeof h ? h : (e) => e !== h;
+          if (!A(e)) throw TypeError('Invalid target');
+          let p = document.scrollingElement || document.documentElement,
+            f = [],
+            m = e;
+          for (; A(m) && c(m); ) {
+            if ((m = R(m)) === p) {
+              f.push(m);
+              break;
+            }
+            (null != m && m === document.body && O(m) && !O(document.documentElement)) ||
+              (null != m && O(m, u) && f.push(m));
+          }
+          let g =
+              null != (n = null == (i = window.visualViewport) ? void 0 : i.width) ? n : innerWidth,
+            E =
+              null != (o = null == (r = window.visualViewport) ? void 0 : r.height)
+                ? o
+                : innerHeight,
+            { scrollX: v, scrollY: y } = window,
+            {
+              height: b,
+              width: w,
+              top: C,
+              right: T,
+              bottom: P,
+              left: M,
+            } = e.getBoundingClientRect(),
+            {
+              top: _,
+              right: k,
+              bottom: N,
+              left: I,
+            } = {
+              top: parseFloat((l = window.getComputedStyle(e)).scrollMarginTop) || 0,
+              right: parseFloat(l.scrollMarginRight) || 0,
+              bottom: parseFloat(l.scrollMarginBottom) || 0,
+              left: parseFloat(l.scrollMarginLeft) || 0,
+            },
+            L = 'start' === a || 'nearest' === a ? C - _ : 'end' === a ? P + N : C + b / 2 - _ + N,
+            x = 'center' === d ? M + w / 2 - I + k : 'end' === d ? T + k : M - I,
+            D = [];
+          for (let e = 0; e < f.length; e++) {
+            let t = f[e],
+              {
+                height: i,
+                width: n,
+                top: r,
+                right: o,
+                bottom: l,
+                left: h,
+              } = t.getBoundingClientRect();
+            if (
+              'if-needed' === s &&
+              C >= 0 &&
+              M >= 0 &&
+              P <= E &&
+              T <= g &&
+              ((t === p && !O(t)) || (C >= r && P <= l && M >= h && T <= o))
+            )
+              break;
+            let u = getComputedStyle(t),
+              c = parseInt(u.borderLeftWidth, 10),
+              m = parseInt(u.borderTopWidth, 10),
+              A = parseInt(u.borderRightWidth, 10),
+              R = parseInt(u.borderBottomWidth, 10),
+              _ = 0,
+              k = 0,
+              N = 'offsetWidth' in t ? t.offsetWidth - t.clientWidth - c - A : 0,
+              I = 'offsetHeight' in t ? t.offsetHeight - t.clientHeight - m - R : 0,
+              j = 'offsetWidth' in t ? (0 === t.offsetWidth ? 0 : n / t.offsetWidth) : 0,
+              F = 'offsetHeight' in t ? (0 === t.offsetHeight ? 0 : i / t.offsetHeight) : 0;
+            if (p === t)
+              ((_ =
+                'start' === a
+                  ? L
+                  : 'end' === a
+                    ? L - E
+                    : 'nearest' === a
+                      ? S(y, y + E, E, m, R, y + L, y + L + b, b)
+                      : L - E / 2),
+                (k =
+                  'start' === d
+                    ? x
+                    : 'center' === d
+                      ? x - g / 2
+                      : 'end' === d
+                        ? x - g
+                        : S(v, v + g, g, c, A, v + x, v + x + w, w)),
+                (_ = Math.max(0, _ + y)),
+                (k = Math.max(0, k + v)));
+            else {
+              ((_ =
+                'start' === a
+                  ? L - r - m
+                  : 'end' === a
+                    ? L - l + R + I
+                    : 'nearest' === a
+                      ? S(r, l, i, m, R + I, L, L + b, b)
+                      : L - (r + i / 2) + I / 2),
+                (k =
+                  'start' === d
+                    ? x - h - c
+                    : 'center' === d
+                      ? x - (h + n / 2) + N / 2
+                      : 'end' === d
+                        ? x - o + A + N
+                        : S(h, o, n, c, A + N, x, x + w, w)));
+              let { scrollLeft: e, scrollTop: s } = t;
+              ((_ = 0 === F ? 0 : Math.max(0, Math.min(s + _ / F, t.scrollHeight - i / F + I))),
+                (k = 0 === j ? 0 : Math.max(0, Math.min(e + k / j, t.scrollWidth - n / j + N))),
+                (L += s - _),
+                (x += e - k));
+            }
+            D.push({ el: t, top: _, left: k });
+          }
+          return D;
+        })(e, t),
+        n = 0;
+      for (let e of i) {
+        let t = e.el,
+          i = Math.abs(e.top - t.scrollTop);
+        n += Math.abs(e.left - t.scrollLeft) + i;
+      }
+      return n;
+    }
+    async function W(e, t) {
+      if (e.some(F)) return;
+      let i = null,
+        n = 1 / 0;
+      for (let t of e) {
+        let e = $(t, { scrollMode: 'if-needed', block: 'center', inline: 'nearest' });
+        e < n && H(t) && ((n = e), (i = t));
+      }
+      i && (i.scrollIntoView({ behavior: 'smooth', block: 'center' }), await U(i, t));
+    }
+    function H(e) {
+      if (!e) return !1;
+      let t = window.getComputedStyle(e);
+      return (
+        'none' !== t.display &&
+        'hidden' !== t.visibility &&
+        '0' !== t.opacity &&
+        (0 !== e.offsetWidth || 0 !== e.offsetHeight) &&
+        (function e(t) {
+          if (!t) return !0;
+          let i = window.getComputedStyle(t);
+          return (
+            'none' !== i.display &&
+            'hidden' !== i.visibility &&
+            '0' !== i.opacity &&
+            e(t.parentElement)
+          );
+        })(e.parentElement)
+      );
+    }
+    async function U(e, t) {
+      I(P(e))
+        ? (await new Promise((i, n) => {
+            let r;
+            if (t.aborted) return void n(new DOMException('Aborted', 'AbortError'));
+            let o = () => {
+              if (t.aborted) {
+                (cancelAnimationFrame(r), n(new DOMException('Aborted', 'AbortError')));
+                return;
+              }
+              1 > Math.abs($(e, { scrollMode: 'if-needed', block: 'center', inline: 'nearest' }))
+                ? i()
+                : (r = requestAnimationFrame(o));
+            };
+            r = requestAnimationFrame(o);
+          }),
+          await D(100, t))
+        : await D(500, t);
+    }
+    var z = ((e, t, i, n) => {
+      if ((t && 'object' == typeof t) || 'function' == typeof t)
+        for (let r of s(t))
+          d.call(e, r) ||
+            r === i ||
+            o(e, r, { get: () => t[r], enumerable: !(n = l(t, r)) || n.enumerable });
+      return e;
+    })(o(null != (t = C()) ? r(a(t)) : {}, 'default', { value: t, enumerable: !0 }), t);
+    function V(e, t) {
+      let i = e.match(t);
+      return i && i.groups
+        ? {
+            environment: i.groups.environment || '__PRIMARY__',
+            itemTypeId: i.groups.item_type_id,
+            itemId: i.groups.item_id,
+            fieldPath: i.groups.field_path,
+          }
+        : null;
+    }
+    function K(e) {
+      let t = Math.round(
+        100 *
+          (function (e) {
+            let t = 0,
+              i = 0.5,
+              n = 0;
+            for (; i - t > 0.001; ) {
+              let r = (t + i) / 2,
+                [o, l, s] = (function (e, t) {
+                  let i = Math.min(t, 1 - t),
+                    n = (n) => {
+                      let r = (n + e / 30) % 12;
+                      return t - i * Math.max(-1, Math.min(r - 3, Math.min(9 - r, 1)));
+                    };
+                  return [Math.round(255 * n(0)), Math.round(255 * n(8)), Math.round(255 * n(4))];
+                })(e, r);
+              1.05 /
+                ((function (e, t, i) {
+                  let n = (e) => (e <= 0.03928 ? e / 12.92 : Math.pow((e + 0.055) / 1.055, 2.4));
+                  return 0.2126 * n(e / 255) + 0.7152 * n(t / 255) + 0.0722 * n(i / 255);
+                })(o, l, s) +
+                  0.05) >=
+              3.5
+                ? ((n = r), (t = r + 0.001))
+                : (i = r - 0.001);
+            }
+            return n;
+          })(e),
+      );
+      return {
+        borderColor: `hsl(${e}, 100%, ${t}%)`,
+        backgroundColor: `hsla(${e}, 100%, ${t}%, 0.15)`,
+      };
+    }
+    function Y(e) {
+      let t = null,
+        i = null,
+        n = () => {
+          ((t = null), i && (e(...i), (i = null)));
+        },
+        r = (...e) => {
+          ((i = e), null == t && (t = window.requestAnimationFrame(n)));
+        };
+      return (
+        (r.cancel = () => {
+          (null != t && (window.cancelAnimationFrame(t), (t = null)), (i = null));
+        }),
+        r
+      );
+    }
+    var G = class {
+        constructor(e) {
+          ((this.doc = e),
+            (this.callbacks = new Set()),
+            (this.running = !1),
+            (this.rafHandler = Y(() => {
+              for (let e of Array.from(this.callbacks))
+                try {
+                  e();
+                } catch (e) {}
+            })),
+            (this.onEvent = () => {
+              this.rafHandler();
+            }));
+        }
+        startIfNeeded() {
+          if (this.running) return;
+          let e = I(this.doc);
+          (e &&
+            (e.addEventListener('scroll', this.onEvent, { passive: !0, capture: !0 }),
+            e.addEventListener('resize', this.onEvent, { passive: !0, capture: !0 })),
+            this.doc.addEventListener('scroll', this.onEvent, { passive: !0, capture: !0 }),
+            (this.running = !0));
+        }
+        stopIfIdle() {
+          if (!this.running || this.callbacks.size > 0) return;
+          let e = I(this.doc);
+          (e &&
+            (e.removeEventListener('scroll', this.onEvent),
+            e.removeEventListener('resize', this.onEvent)),
+            this.doc.removeEventListener('scroll', this.onEvent),
+            (this.running = !1),
+            this.rafHandler.cancel());
+        }
+        subscribe(e) {
+          return (
+            this.callbacks.add(e),
+            this.startIfNeeded(),
+            () => {
+              (this.callbacks.delete(e), this.stopIfIdle());
+            }
+          );
+        }
+      },
+      q = new WeakMap(),
+      B = class {
+        constructor(e) {
+          ((this.window = e), (this.observer = null), (this.callbacks = new WeakMap()));
+          const t = (function (e) {
+            return e && 'ResizeObserver' in e
+              ? e.ResizeObserver
+              : 'u' > typeof ResizeObserver
+                ? ResizeObserver
+                : void 0;
+          })(this.window);
+          t &&
+            (this.observer = new t((e) => {
+              for (let t of e) {
+                let e = this.callbacks.get(t.target);
+                if (e) for (let t of e) t();
+              }
+            }));
+        }
+        observe(e, t) {
+          if (!this.observer) return () => {};
+          let i = this.callbacks.get(e);
+          return (
+            i || ((i = new Set()), this.callbacks.set(e, i), this.observer.observe(e)),
+            i.add(t),
+            () => {
+              let i = this.callbacks.get(e);
+              i &&
+                (i.delete(t),
+                0 === i.size && (this.callbacks.delete(e), this.observer?.unobserve(e)));
+            }
+          );
+        }
+      },
+      J = new WeakMap(),
+      X = class {
+        constructor(e, t = {}) {
+          ((this.targetElement = e),
+            (this.resizeUnobserve = null),
+            (this.scrollResizeUnsubscribe = null),
+            (this.pendingAnimationAbortController = null),
+            (this.onDispose = t.onDispose),
+            (this.showLabel = t.showLabel ?? !1),
+            (this.overlayColors = t.overlayColors ?? K(17)),
+            (this.overlayElement = this.createOverlayElement(this.showLabel)),
+            document.body.appendChild(this.overlayElement));
+          const i = (function (e) {
+            let t = q.get(e);
+            return (t || ((t = new G(e)), q.set(e, t)), t);
+          })(this.document);
+          this.scrollResizeUnsubscribe = i.subscribe(() => {
+            this.updatePosition();
+          });
+          const n = (function (e) {
+            if (!e) return null;
+            let t = J.get(e);
+            return (t || ((t = new B(e)), J.set(e, t)), t);
+          })(this.window);
+          n &&
+            (this.resizeUnobserve = n.observe(e, () => {
+              this.updatePosition();
+            }));
+        }
+        show() {
+          this.updatePosition();
+        }
+        get document() {
+          return P(this.targetElement);
+        }
+        get window() {
+          return I(this.document);
+        }
+        dispose() {
+          (this.onDispose?.(),
+            this.scrollResizeUnsubscribe?.(),
+            this.resizeUnobserve?.(),
+            this.overlayElement.remove());
+        }
+        cancelPendingAnimation() {
+          this.pendingAnimationAbortController?.abort();
+        }
+        async fadeIn(e = 0, t) {
+          (this.cancelPendingAnimation(),
+            (this.pendingAnimationAbortController = t || new AbortController()));
+          let { signal: i } = this.pendingAnimationAbortController;
+          try {
+            ((this.overlayElement.style.opacity = '0'),
+              await j(),
+              await D(e, i),
+              (this.overlayElement.style.opacity = '1'));
+          } catch (e) {}
+        }
+        async disposeWithFadeOut(e = 0, t) {
+          (this.cancelPendingAnimation(),
+            (this.pendingAnimationAbortController = t || new AbortController()));
+          let { signal: i } = this.pendingAnimationAbortController;
+          try {
+            (await D(e, i), (this.overlayElement.style.opacity = '0'), await D(250, i));
+          } catch (e) {
+          } finally {
+            this.dispose();
+          }
+        }
+        createOverlayElement(e) {
+          let t = this.document.createElement('div');
+          if (
+            ((t.style.position = 'fixed'),
+            (t.style.top = '0'),
+            (t.style.left = '0'),
+            (t.style.width = '0'),
+            (t.style.height = '0'),
+            (t.style.border = `2px solid ${this.overlayColors.borderColor}`),
+            (t.style.borderRadius = e ? '6px 0 6px 6px' : '6px'),
+            (t.style.background = this.overlayColors.backgroundColor),
+            (t.style.boxSizing = 'border-box'),
+            (t.style.pointerEvents = 'none'),
+            (t.style.zIndex = '2147483646'),
+            (t.style.display = 'block'),
+            (t.style.opacity = '1'),
+            (t.style.transition = 'opacity 200ms ease-in-out'),
+            t.setAttribute('aria-hidden', 'true'),
+            e)
+          ) {
+            let e = this.document.createElement('div');
+            ((e.textContent = 'Open in DatoCMS ↗'),
+              (e.style.position = 'absolute'),
+              (e.style.bottom = '100%'),
+              (e.style.right = '-2px'),
+              (e.style.backgroundColor = this.overlayColors.borderColor),
+              (e.style.color = 'white'),
+              (e.style.padding = '4px 12px'),
+              (e.style.borderRadius = '6px 6px 0 0'),
+              (e.style.fontSize = '13px'),
+              (e.style.fontWeight = '600'),
+              (e.style.fontFamily = 'system-ui, -apple-system, sans-serif'),
+              (e.style.whiteSpace = 'nowrap'),
+              e.style.setProperty('-webkit-font-smoothing', 'antialiased'),
+              (e.style.letterSpacing = 'normal'),
+              (e.style.lineHeight = 'normal'),
+              (e.style.textTransform = 'none'),
+              (e.style.fontStyle = 'normal'),
+              e.setAttribute('aria-hidden', 'true'),
+              t.appendChild(e));
+          }
+          return t;
+        }
+        updatePosition() {
+          let e = (function (e) {
+            if ('function' != typeof e.getBoundingClientRect) return null;
+            let t = e.getBoundingClientRect();
+            return (0 !== t.width || 0 !== t.height) && H(e)
+              ? { top: t.top, left: t.left, width: t.width, height: t.height }
+              : null;
+          })(this.targetElement);
+          if (
+            ((this.overlayElement.style.zIndex = this.computeOverlayZIndex(this.targetElement)), !e)
+          ) {
+            this.overlayElement.style.display = 'none';
+            return;
+          }
+          if (
+            ((this.overlayElement.style.display = 'block'),
+            (this.overlayElement.style.top = `${e.top - 8}px`),
+            (this.overlayElement.style.left = `${e.left - 8}px`),
+            (this.overlayElement.style.width = `${e.width + 16}px`),
+            (this.overlayElement.style.height = `${e.height + 16}px`),
+            this.showLabel)
+          ) {
+            let t = this.overlayElement.firstElementChild;
+            t &&
+              (e.width + 16 < 150
+                ? ((t.style.bottom = 'calc(100% + 10px)'),
+                  (t.style.right = 'auto'),
+                  (t.style.left = '50%'),
+                  (t.style.transform = 'translateX(-50%)'),
+                  (t.style.borderRadius = '6px'),
+                  (this.overlayElement.style.borderRadius = '6px'))
+                : ((t.style.bottom = '100%'),
+                  (t.style.right = '-2px'),
+                  (t.style.left = 'auto'),
+                  (t.style.transform = 'none'),
+                  (t.style.borderRadius = '6px 6px 0 0'),
+                  (this.overlayElement.style.borderRadius = '6px 0 6px 6px')));
+          }
+        }
+        computeOverlayZIndex(e) {
+          if (!this.window) return '0';
+          let t = e,
+            i = null;
+          for (; t && t instanceof this.window.Element; ) {
+            let e = this.window.getComputedStyle(t).zIndex;
+            if ('auto' !== e) {
+              let t = Number(e);
+              Number.isFinite(t) && (i = t);
+            }
+            t = t.parentElement;
+          }
+          return null !== i ? String(i) : '0';
+        }
+      },
+      Z = 'data-datocms-auto-content-link-url',
+      Q = 'data-datocms-content-link-url',
+      ee = 'data-datocms-content-link-group',
+      et = 'data-datocms-content-link-source',
+      ei = `[${Q}], [${Z}]`;
+    function en(e) {
+      if (!e || !(e instanceof Element)) return null;
+      let t = e.closest(ei);
+      if (!t) return null;
+      let i = t.getAttribute(Q) || t.getAttribute(Z);
+      return i ? { element: t, editUrl: i } : null;
+    }
+    var er = class {
+        constructor(e, t, i = () => !1, n) {
+          ((this.document = e),
+            (this.onEditClick = t),
+            (this.shouldShowLabel = i),
+            (this.overlayColors = n),
+            (this.highlightOverlay = null),
+            (this.listenerAbortController = null),
+            (this.throttledOnPointerMove = Y((e) => this.immediateOnPointerMoveEvent(e))));
+        }
+        isActive() {
+          return !!this.listenerAbortController;
+        }
+        activate() {
+          if (this.isActive()) return;
+          this.listenerAbortController = new AbortController();
+          let e = { capture: !0, signal: this.listenerAbortController.signal };
+          (this.document.addEventListener('pointerover', this.throttledOnPointerMove, e),
+            this.document.addEventListener('pointermove', this.throttledOnPointerMove, e),
+            this.document.addEventListener('pointerleave', (e) => this.onPointerLeave(e), e),
+            this.document.addEventListener('click', (e) => this.onClick(e), e),
+            this.document.addEventListener('focusin', (e) => this.onFocusIn(e), e),
+            this.document.addEventListener('focusout', () => this.onFocusOut(), e),
+            this.document.addEventListener('keydown', (e) => this.onKeyDown(e), e));
+        }
+        immediateOnPointerMoveEvent(e) {
+          if (!_(e)) return;
+          let t = en(e.target);
+          this.highlightElement(t?.element);
+        }
+        onPointerLeave(e) {
+          !_(e) || en(e.relatedTarget) || this.highlightElement(null);
+        }
+        onFocusIn(e) {
+          let t = en(e.target);
+          this.highlightElement(t?.element);
+        }
+        onKeyDown(e) {
+          if (!N(e) || ('Enter' !== e.key && ' ' !== e.key && 'Spacebar' !== e.key)) return;
+          let t = en(this.document.activeElement);
+          t &&
+            (this.highlightElement(t.element),
+            e.preventDefault(),
+            e.stopPropagation(),
+            this.onEditClick(t.editUrl));
+        }
+        onClick(e) {
+          if (!k(e) || 0 !== e.button) return;
+          let t = en(e.target);
+          t &&
+            (this.highlightElement(t.element),
+            e.preventDefault(),
+            e.stopPropagation(),
+            this.onEditClick(t.editUrl));
+        }
+        onFocusOut() {
+          this.highlightElement(null);
+        }
+        highlightElement(e) {
+          let t = e && !e.isConnected ? null : e;
+          if (
+            (!this.highlightOverlay || this.highlightOverlay.targetElement !== t) &&
+            (this.highlightOverlay &&
+              (this.highlightOverlay.dispose(), (this.highlightOverlay = null)),
+            t)
+          ) {
+            let e = t.style.cursor;
+            ((t.style.cursor = 'pointer'),
+              (this.highlightOverlay = new X(t, {
+                onDispose: () => {
+                  t.style.cursor = e;
+                },
+                showLabel: this.shouldShowLabel(),
+                overlayColors: this.overlayColors,
+              })),
+              this.highlightOverlay.show());
+          }
+        }
+        deactivate() {
+          this.isActive() &&
+            (this.listenerAbortController.abort(),
+            (this.listenerAbortController = null),
+            this.throttledOnPointerMove.cancel(),
+            this.highlightOverlay?.dispose(),
+            (this.highlightOverlay = null));
+        }
+      },
+      eo = {
+        0: 8203,
+        1: 8204,
+        2: 8205,
+        3: 8290,
+        4: 8291,
+        5: 8288,
+        6: 65279,
+        7: 8289,
+        8: 119155,
+        9: 119156,
+        a: 119157,
+        b: 119158,
+        c: 119159,
+        d: 119160,
+        e: 119161,
+        f: 119162,
+      },
+      el = { 0: 8203, 1: 8204, 2: 8205, 3: 65279 },
+      es = [, , , ,].fill(String.fromCodePoint(el[0])).join(''),
+      ea = Object.fromEntries(Object.entries(el).map((e) => e.reverse())),
+      ed = Object.fromEntries(Object.entries(eo).map((e) => e.reverse())),
+      eh = `${Object.values(eo)
+        .map((e) => `\\u{${e.toString(16)}}`)
+        .join('')}`,
+      eu = RegExp(`[${eh}]{4,}`, 'gu'),
+      ec = class {
+        constructor(e, t, i = !1) {
+          ((this.root = e),
+            (this.onStamp = t),
+            (this.stripStega = i),
+            (this.pendingElementsToStamp = new Set()),
+            (this.scheduleStamping = (function (e) {
+              let t = !1,
+                i =
+                  'function' == typeof queueMicrotask
+                    ? queueMicrotask
+                    : (e) => Promise.resolve().then(e);
+              return () => {
+                t ||
+                  ((t = !0),
+                  i(() => {
+                    ((t = !1), e());
+                  }));
+              };
+            })(() => this.instantStampPendingElements())),
+            (this.observer = new MutationObserver((e) => this.handleMutations(e))),
+            this.observer.observe(this.root, {
+              subtree: !0,
+              childList: !0,
+              characterData: !0,
+              attributes: !0,
+              attributeFilter: ['alt', et],
+            }),
+            this.instantStampPendingElements(!0));
+        }
+        dispose() {
+          for (let e of (this.observer.disconnect(),
+          this.pendingElementsToStamp.clear(),
+          this.root.querySelectorAll(`[${Z}]`)))
+            e.removeAttribute(Z);
+        }
+        handleMutations(e) {
+          let t = !1;
+          for (let i of e)
+            if ('characterData' === i.type) {
+              let e = i.target,
+                n = e.parentElement ?? e.parentNode ?? this.root;
+              (this.pendingElementsToStamp.add(n), (t = !0));
+            } else if ('attributes' === i.type && 'alt' === i.attributeName) {
+              let e = i.target;
+              (this.pendingElementsToStamp.add(e.parentElement ?? this.root), (t = !0));
+            } else if ('attributes' === i.type && i.attributeName === et) {
+              let e = i.target;
+              (this.pendingElementsToStamp.add(e.parentElement ?? this.root), (t = !0));
+            } else if ('childList' === i.type) {
+              for (let e of (this.pendingElementsToStamp.add(i.target), i.addedNodes))
+                (e.nodeType === Node.ELEMENT_NODE || e.nodeType === Node.DOCUMENT_FRAGMENT_NODE) &&
+                  this.pendingElementsToStamp.add(e);
+              t = !0;
+            }
+          t && this.scheduleStamping();
+        }
+        instantStampPendingElements(e = !1) {
+          let t =
+            0 === this.pendingElementsToStamp.size
+              ? [this.root]
+              : Array.from(this.pendingElementsToStamp);
+          this.pendingElementsToStamp.clear();
+          let i = [];
+          for (let e of t) {
+            let t = this.stampElement(e);
+            i.push(t);
+          }
+          let n =
+            1 === i.length
+              ? i[0]
+              : {
+                  appliedStamps: i.reduce((e, t) => {
+                    for (let [i, n] of t.appliedStamps.entries()) e.set(i, n);
+                    return e;
+                  }, new Map()),
+                  scope: this.root,
+                };
+          (e &&
+            0 === n.appliedStamps.size &&
+            console.warn(
+              "[@datocms/content-link] No editable elements were detected after initialization. Make sure that Content Link headers are enabled in your GraphQL requests! If you're hydrating/streaming, do not replace the server-rendered nodes that carry stega-encoded data: reuse the same DOM element!",
+            ),
+            0 !== i.length && this.onStamp(n));
+        }
+        stampElement(e) {
+          let t = P(e);
+          if (!t) return { appliedStamps: new Map(), scope: e };
+          let i = new Map(),
+            n = t.createTreeWalker(e, NodeFilter.SHOW_TEXT),
+            r = n.nextNode();
+          for (; r; ) {
+            if (!(r instanceof Text)) {
+              r = n.nextNode();
+              continue;
+            }
+            let e = r.nodeValue ?? '',
+              t = r.parentElement;
+            if (t && this.isInsideExcludedTag(t)) {
+              r = n.nextNode();
+              continue;
+            }
+            let o = this.addStampingAttributesTargetAndReturnStrippedValue(e, t, i);
+            (this.stripStega && void 0 !== o && (r.nodeValue = o), (r = n.nextNode()));
+          }
+          for (let t of e.querySelectorAll('img[alt]')) {
+            let e = t.getAttribute('alt'),
+              n = this.addStampingAttributesTargetAndReturnStrippedValue(e, t, i);
+            this.stripStega && void 0 !== n && t.setAttribute('alt', n);
+          }
+          for (let t of e.querySelectorAll(`[${et}]`)) {
+            let e = t.getAttribute(et);
+            (this.addStampingAttributesTargetAndReturnStrippedValue(e, t, i),
+              this.stripStega && t.removeAttribute(et));
+          }
+          return { appliedStamps: i, scope: e };
+        }
+        addStampingAttributesTargetAndReturnStrippedValue(e, t, i) {
+          let n, r;
+          if (!e || !t) return;
+          try {
+            var o, l;
+            if (
+              !(n = {
+                cleaned: e.replace(eu, ''),
+                encoded: (null == (o = e.match(eu)) ? void 0 : o[0]) || '',
+              }).encoded ||
+              ((l = r =
+                (function (e) {
+                  let t = e.match(eu);
+                  if (t)
+                    return (function (e, t = !1) {
+                      let i = Array.from(e);
+                      if (i.length % 2 == 0) {
+                        if (i.length % 4 || !e.startsWith(es))
+                          return (function (e, t) {
+                            var i;
+                            let n = [];
+                            for (let t = 0.5 * e.length; t--; ) {
+                              let i = `${ed[e[2 * t].codePointAt(0)]}${ed[e[2 * t + 1].codePointAt(0)]}`;
+                              n.unshift(String.fromCharCode(parseInt(i, 16)));
+                            }
+                            let r = [],
+                              o = [n.join('')],
+                              l = 10;
+                            for (; o.length; ) {
+                              let e = o.shift();
+                              try {
+                                if ((r.push(JSON.parse(e)), t)) break;
+                              } catch (n) {
+                                if (!l--) throw n;
+                                let t = +(null == (i = n.message.match(/\sposition\s(\d+)$/))
+                                  ? void 0
+                                  : i[1]);
+                                if (!t) throw n;
+                                o.unshift(e.substring(0, t), e.substring(t));
+                              }
+                            }
+                            return r;
+                          })(i, t);
+                      } else throw Error('Encoded data has invalid length');
+                      let n = [];
+                      for (let e = 0.25 * i.length; e--; ) {
+                        let t = i
+                          .slice(4 * e, 4 * e + 4)
+                          .map((e) => ea[e.codePointAt(0)])
+                          .join('');
+                        n.unshift(String.fromCharCode(parseInt(t, 4)));
+                      }
+                      if (t) {
+                        n.shift();
+                        let e = n.indexOf('\0');
+                        return (-1 === e && (e = n.length), [JSON.parse(n.slice(0, e).join(''))]);
+                      }
+                      return n
+                        .join('')
+                        .split('\0')
+                        .filter(Boolean)
+                        .map((e) => JSON.parse(e));
+                    })(t[0], !0)[0];
+                })(n.encoded)),
+              'object' != typeof l ||
+                null === l ||
+                !('origin' in l) ||
+                'string' != typeof l.origin ||
+                !('href' in l) ||
+                'string' != typeof l.href)
+            )
+              return;
+          } catch (e) {
+            return;
+          }
+          let s = this.maybeFindGroup(t);
+          if (!s) return;
+          let a = i.get(s);
+          return (
+            a && a !== r.href && this.warnCollision(s, a, t, r.href),
+            s.getAttribute(Z) !== r.href && (s.setAttribute(Z, r.href), i.set(s, r.href)),
+            this.stripStega || t.setAttribute('data-datocms-contains-stega', ''),
+            n.cleaned
+          );
+        }
+        warnCollision(e, t, i, n) {
+          console.warn(
+            `[@datocms/content-link] Multiple stega-encoded payloads resolved to the same DOM element. Previous URL: ${t}. Incoming URL: ${n}. Wrap each encoded block in its own element (for example by adding ${ee}).`,
+            e,
+            i,
+          );
+        }
+        isInsideExcludedTag(e) {
+          if (!e) return !1;
+          let t = e;
+          for (; t; ) {
+            if ('SCRIPT' === t.tagName || 'STYLE' === t.tagName) return !0;
+            t = t.parentElement;
+          }
+          return !1;
+        }
+        maybeFindGroup(e) {
+          let t = e;
+          for (; t; ) {
+            if (t.hasAttribute(ee)) return t;
+            if (t.hasAttribute('data-datocms-content-link-boundary')) break;
+            t = t.parentElement;
+          }
+          return e;
+        }
+      },
+      ep = class {
+        constructor(e) {
+          this.doc = e.doc;
+        }
+        emitStamped(e) {
+          this.dispatch('datocms:visual-editing:stamped', e);
+        }
+        emitClickToEditToggle(e) {
+          this.dispatch('datocms:click-to-edit:toggle', e);
+        }
+        dispatch(e, t) {
+          let i =
+            this.doc.defaultView?.CustomEvent ?? ('u' > typeof CustomEvent ? CustomEvent : void 0);
+          if (i)
+            try {
+              let n = new i(e, { detail: t });
+              this.doc.dispatchEvent(n);
+            } catch {}
+        }
+      },
+      ef = class {
+        constructor(e, t) {
+          ((this.wrapperElement = e),
+            (this.overlayColors = t),
+            (this.overlays = []),
+            (this.pendingAnimationAbortController = null),
+            (this.disposed = !1));
+        }
+        async flash(e) {
+          this.disposed || (this.fadeIn(e), await x(1500), this.fadeOut());
+        }
+        async fadeIn(e) {
+          if (this.disposed) return;
+          await j();
+          let t = Array.from(this.wrapperElement.querySelectorAll(ei));
+          if (0 === t.length) return;
+          this.instantlyDisposeOverlays();
+          let i = new AbortController(),
+            { signal: n } = i;
+          this.pendingAnimationAbortController = i;
+          try {
+            e && (await W(t, n));
+            let r = t.length;
+            t.map((e, t) => {
+              let n = new X(e, { overlayColors: this.overlayColors });
+              (n.fadeIn(r < 50 ? 10 * t : 0, i), this.overlays.push(n));
+            });
+          } catch (e) {}
+        }
+        fadeOut() {
+          if (this.disposed) return;
+          this.cancelPendingAnimation();
+          let e = new AbortController(),
+            t = this.overlays.length;
+          (this.overlays.map((i, n) => {
+            i.disposeWithFadeOut(t < 50 ? 10 * n : 0, e);
+          }),
+            (this.overlays = []));
+        }
+        dispose() {
+          this.disposed || ((this.disposed = !0), this.instantlyDisposeOverlays());
+        }
+        cancelPendingAnimation() {
+          this.pendingAnimationAbortController?.abort();
+        }
+        instantlyDisposeOverlays() {
+          (this.cancelPendingAnimation(),
+            this.overlays.forEach((e) => {
+              (e.cancelPendingAnimation(), e.dispose());
+            }),
+            (this.overlays = []));
+        }
+      },
+      em = class {
+        constructor(e, t, i, n) {
+          ((this.wrapperElement = e),
+            (this.itemId = t),
+            (this.editUrlRegExp = i),
+            (this.overlayColors = n),
+            (this.overlays = []),
+            (this.pendingAnimationAbortController = null),
+            (this.disposed = !1));
+        }
+        async flash(e) {
+          this.disposed || (await j(), this.fadeIn(e), await x(1500), await this.fadeOut());
+        }
+        async fadeIn(e) {
+          if (this.disposed) return;
+          let t = this.wrapperElement.querySelectorAll(ei),
+            i = new Set();
+          for (let e of t) {
+            let t = e.getAttribute(Q) || e.getAttribute(Z);
+            if (t) {
+              let n = V(t, this.editUrlRegExp);
+              n && n.itemId === this.itemId && i.add(e);
+            }
+          }
+          let n = Array.from(i);
+          if (0 === n.length) return;
+          this.instantlyDisposeOverlays();
+          let r = new AbortController(),
+            { signal: o } = r;
+          this.pendingAnimationAbortController = r;
+          try {
+            (e && (await W(n, o)),
+              n.map((e, t) => {
+                let i = new X(e, { overlayColors: this.overlayColors });
+                (i.fadeIn(10 * t, r), this.overlays.push(i));
+              }));
+          } catch (e) {}
+        }
+        async fadeOut() {
+          if (this.disposed) return;
+          this.cancelPendingAnimation();
+          let e = new AbortController(),
+            t = Promise.all(this.overlays.map((t, i) => t.disposeWithFadeOut(10 * i, e)));
+          return ((this.overlays = []), await t);
+        }
+        dispose() {
+          this.disposed || ((this.disposed = !0), this.instantlyDisposeOverlays());
+        }
+        cancelPendingAnimation() {
+          this.pendingAnimationAbortController?.abort();
+        }
+        instantlyDisposeOverlays() {
+          (this.cancelPendingAnimation(),
+            this.overlays.forEach((e) => {
+              (e.cancelPendingAnimation(), e.dispose());
+            }),
+            (this.overlays = []));
+        }
+      },
+      eg = class {
+        constructor(e) {
+          ((this.flashItemManager = null),
+            (this.webPreviewsPluginConnection = null),
+            (this.disposed = !1),
+            (this.currentPath = M(document.location.toString())),
+            (this.wrapperElement = e.root ?? document),
+            (this.onNavigateTo = e.onNavigateTo),
+            (this.overlayColors = K(e.hue ?? 17)),
+            (this.eventsManager = new ep({ doc: this.document })),
+            (this.clickToEditManager = new er(
+              this.document,
+              (e) => this.handleEditClick(e),
+              () => null === this.webPreviewsPluginConnection,
+              this.overlayColors,
+            )),
+            this.initializeWebPreviewsPluginConnection(),
+            (this.stampingManager = new ec(
+              this.wrapperElement,
+              (e) => this.handleStampResult(e),
+              e.stripStega ?? !1,
+            )),
+            (this.flashAllManager = new ef(this.wrapperElement, this.overlayColors)),
+            (this.listenerAbortController = new AbortController()),
+            this.document.addEventListener('keydown', (e) => this.onKeyDown(e), {
+              capture: !0,
+              signal: this.listenerAbortController.signal,
+            }),
+            this.document.addEventListener('keyup', (e) => this.onKeyUp(e), {
+              capture: !0,
+              signal: this.listenerAbortController.signal,
+            }),
+            this.document.addEventListener('click', (e) => this.onClick(e), {
+              capture: !0,
+              signal: this.listenerAbortController.signal,
+            }),
+            this.document.addEventListener(
+              'visibilitychange',
+              () => {
+                document.hidden && this.disableTemporaryClickToEditState();
+              },
+              { signal: this.listenerAbortController.signal },
+            ),
+            I(this.document)?.addEventListener(
+              'blur',
+              () => {
+                this.disableTemporaryClickToEditState();
+              },
+              { signal: this.listenerAbortController.signal },
+            ));
+        }
+        get document() {
+          return P(this.wrapperElement);
+        }
+        dispose() {
+          this.disposed ||
+            ((this.disposed = !0),
+            this.clickToEditManager.deactivate(),
+            this.stampingManager.dispose(),
+            this.flashAllManager.dispose(),
+            this.flashItemManager?.dispose(),
+            this.webPreviewsPluginConnection?.destroy(),
+            this.listenerAbortController.abort());
+        }
+        isDisposed() {
+          return this.disposed;
+        }
+        setCurrentPath(e) {
+          this.currentPath = M(e);
+        }
+        enableClickToEdit(e) {
+          !this.disposed &&
+            (this.clickToEditManager.isActive() ||
+              (this.clickToEditManager.activate(),
+              this.eventsManager.emitClickToEditToggle(!0),
+              this.notifyStateChangeToWebPreviewsPlugin()),
+            e && this.flashAllManager.flash(e.scrollToNearestTarget));
+        }
+        disableClickToEdit() {
+          this.clickToEditManager.isActive() &&
+            !this.disposed &&
+            (this.clickToEditManager.deactivate(),
+            this.eventsManager.emitClickToEditToggle(!1),
+            this.notifyStateChangeToWebPreviewsPlugin());
+        }
+        isClickToEditEnabled() {
+          return this.clickToEditManager.isActive() && !this.disposed;
+        }
+        flashAll(e = !1) {
+          this.disposed || this.flashAllManager.flash(e);
+        }
+        async flashItem(e, t = !1) {
+          if (this.disposed || !this.webPreviewsPluginConnection) return;
+          this.flashItemManager?.dispose();
+          let i = new em(
+              this.wrapperElement,
+              e,
+              this.webPreviewsPluginConnection.editUrlRegExp,
+              this.overlayColors,
+            ),
+            n = i.flash(t);
+          ((this.flashItemManager = i), await n, i.dispose());
+        }
+        handleStampResult(e) {
+          (this.eventsManager.emitStamped(e), this.notifyStateChangeToWebPreviewsPlugin());
+        }
+        async notifyStateChangeToWebPreviewsPlugin() {
+          if (!this.webPreviewsPluginConnection) return;
+          let e = this.wrapperElement.querySelectorAll(ei),
+            t = new Set();
+          for (let i of e) {
+            let e = i.getAttribute(Q) || i.getAttribute(Z);
+            e && t.add(e);
+          }
+          await this.webPreviewsPluginConnection.parent.onStateChange({
+            clickToEditEnabled: this.clickToEditManager.isActive(),
+            path: this.currentPath,
+            itemIdsPerEnvironment: (function (e, t) {
+              let i = {};
+              for (let n of e) {
+                let e = V(n, t);
+                if (e) {
+                  let t = e.environment;
+                  (i[t] || (i[t] = new Set()), i[t].add(e.itemId));
+                }
+              }
+              let n = {};
+              for (let [e, t] of Object.entries(i)) n[e] = Array.from(t);
+              return n;
+            })(Array.from(t), this.webPreviewsPluginConnection.editUrlRegExp),
+          });
+        }
+        handleEditClick(e) {
+          if (this.webPreviewsPluginConnection) {
+            let t = V(e, this.webPreviewsPluginConnection.editUrlRegExp);
+            t && this.webPreviewsPluginConnection.parent.openItem(t);
+          } else {
+            let t = this.document.defaultView ?? ('u' > typeof window ? window : null);
+            t?.open(e, '_blank', 'noopener,noreferrer');
+          }
+        }
+        async initializeWebPreviewsPluginConnection() {
+          let e;
+          if (!('u' > typeof window && window.parent !== window)) return;
+          let t = z.default.connectToParent({
+              timeout: 2e4,
+              methods: {
+                navigateTo: (e) => {
+                  this.onNavigateTo?.(e.path);
+                },
+                flashAll: (e) => {
+                  this.flashAll(e.scrollToNearestTarget);
+                },
+                flashItem: (e) => {
+                  this.flashItem(e.itemId, e.scrollToNearestTarget);
+                },
+                setClickToEditEnabled: (e) => {
+                  e.enabled ? this.enableClickToEdit(e.flash) : this.disableClickToEdit();
+                },
+              },
+            }),
+            i = await t.promise;
+          if (this.disposed) return void t.destroy();
+          let { editUrlRegExp: n } = await i.onInit();
+          ((e = setInterval(() => i.onPing(), 1e3)),
+            (this.webPreviewsPluginConnection = {
+              parent: i,
+              destroy: () => {
+                (clearInterval(e), t.destroy());
+              },
+              editUrlRegExp: new RegExp(n.source, n.flags),
+            }),
+            await this.notifyStateChangeToWebPreviewsPlugin());
+        }
+        onKeyDown(e) {
+          N(e) &&
+            'Alt' === e.key &&
+            this.isTopLevelWindowOrInWebPreviewsIframe &&
+            (L(this.document) || this.enableTemporaryClickToEditState());
+        }
+        onKeyUp(e) {
+          N(e) &&
+            'Alt' === e.key &&
+            this.isTopLevelWindowOrInWebPreviewsIframe &&
+            (L(this.document) || this.disableTemporaryClickToEditState());
+        }
+        onClick(e) {
+          if (
+            k(e) &&
+            0 === e.button &&
+            this.temporaryState &&
+            !this.temporaryState.enabled &&
+            e.altKey
+          ) {
+            e.preventDefault();
+            let t = new MouseEvent('click', { bubbles: !0, cancelable: !0, view: window });
+            e.target.dispatchEvent(t);
+          }
+        }
+        enableTemporaryClickToEditState() {
+          this.clickToEditManager.isActive()
+            ? ((this.temporaryState = { enabled: !1 }),
+              this.disableClickToEdit(),
+              this.flashAllManager.fadeOut())
+            : ((this.temporaryState = { enabled: !0 }),
+              this.enableClickToEdit(),
+              this.flashAllManager.fadeIn(!0));
+        }
+        disableTemporaryClickToEditState() {
+          this.temporaryState &&
+            (this.temporaryState.enabled
+              ? (this.disableClickToEdit(), this.flashAllManager.fadeOut())
+              : (this.enableClickToEdit(), this.flashAllManager.flash(!0)),
+            (this.temporaryState = void 0));
+        }
+        get isTopLevelWindowOrInWebPreviewsIframe() {
+          let e = this.document.defaultView ?? ('u' > typeof window ? window : null);
+          return this.webPreviewsPluginConnection || (e && e.parent === e);
+        }
+      },
+      eE = class {
+        constructor() {
+          this.disposed = !1;
+        }
+        dispose() {
+          this.disposed = !0;
+        }
+        isDisposed() {
+          return this.disposed;
+        }
+        setCurrentPath() {}
+        enableClickToEdit() {}
+        disableClickToEdit() {}
+        isClickToEditEnabled() {
+          return !1;
+        }
+        flashAll() {}
+      },
+      ev = function (e, t) {
+        var i = {};
+        for (var n in e)
+          Object.prototype.hasOwnProperty.call(e, n) && 0 > t.indexOf(n) && (i[n] = e[n]);
+        if (null != e && 'function' == typeof Object.getOwnPropertySymbols)
+          for (var r = 0, n = Object.getOwnPropertySymbols(e); r < n.length; r++)
+            0 > t.indexOf(n[r]) &&
+              Object.prototype.propertyIsEnumerable.call(e, n[r]) &&
+              (i[n[r]] = e[n[r]]);
+        return i;
+      };
+    function ey(e) {
+      let { currentPath: t, enableClickToEdit: i, stripStega: r, hue: o } = e,
+        { enableClickToEdit: l, setCurrentPath: s } = (function (e = {}) {
+          let { enabled: t = !0, onNavigateTo: i, root: r, hue: o } = e,
+            l = (0, n.useRef)(null),
+            s = (0, n.useRef)(i);
+          ((0, n.useEffect)(() => {
+            s.current = i;
+          }, [i]),
+            (0, n.useEffect)(() => {
+              if (!0 !== t && ('object' != typeof t || null === t)) {
+                l.current && (l.current.dispose(), (l.current = null));
+                return;
+              }
+              let e = 'object' == typeof t && t.stripStega,
+                i = (function (e = {}) {
+                  return 'u' > typeof window && 'u' > typeof document ? new eg(e) : new eE();
+                })({
+                  onNavigateTo: (e) => {
+                    var t;
+                    return null == (t = s.current) ? void 0 : t.call(s, e);
+                  },
+                  root: (null == r ? void 0 : r.current) || void 0,
+                  stripStega: e,
+                  hue: o,
+                });
+              return (
+                (l.current = i),
+                () => {
+                  (i.dispose(), (l.current = null));
+                }
+              );
+            }, [t, r, o]));
+          let a = (0, n.useCallback)((e) => {
+              var t;
+              (null == e ||
+                !e.hoverOnly ||
+                ('u' > typeof window && window.matchMedia('(hover: hover)').matches)) &&
+                (null == (t = l.current) ||
+                  t.enableClickToEdit(
+                    (null == e ? void 0 : e.scrollToNearestTarget)
+                      ? { scrollToNearestTarget: e.scrollToNearestTarget }
+                      : void 0,
+                  ));
+            }, []),
+            d = (0, n.useCallback)(() => {
+              var e;
+              null == (e = l.current) || e.disableClickToEdit();
+            }, []),
+            h = (0, n.useCallback)(() => {
+              var e, t;
+              return null != (t = null == (e = l.current) ? void 0 : e.isClickToEditEnabled()) && t;
+            }, []),
+            u = (0, n.useCallback)((e) => {
+              var t;
+              null == (t = l.current) || t.flashAll(e);
+            }, []),
+            c = (0, n.useCallback)((e) => {
+              var t;
+              null == (t = l.current) || t.setCurrentPath(e);
+            }, []);
+          return {
+            controller: l.current,
+            enableClickToEdit: a,
+            disableClickToEdit: d,
+            isClickToEditEnabled: h,
+            flashAll: u,
+            setCurrentPath: c,
+          };
+        })(
+          Object.assign(
+            Object.assign({}, ev(e, ['currentPath', 'enableClickToEdit', 'stripStega', 'hue'])),
+            { enabled: void 0 === r || { stripStega: r }, hue: o },
+          ),
+        );
+      return (
+        (0, n.useEffect)(() => {
+          void 0 !== t && s(t);
+        }, [t, s]),
+        (0, n.useEffect)(() => {
+          !i || ('u' > typeof window && window.parent === window && l(!0 === i ? void 0 : i));
+        }, [i, l]),
+        null
+      );
+    }
+    var eb = e.i(18566);
+    e.s(
+      [
+        'default',
+        0,
+        function () {
+          let e = (0, eb.useRouter)(),
+            t = (0, eb.usePathname)();
+          return (0, i.jsx)(ey, {
+            onNavigateTo: (t) => {
+              e.push(t);
+            },
+            currentPath: t,
+            enableClickToEdit: { hoverOnly: !0 },
+          });
+        },
+      ],
+      63587,
+    );
+  },
+  41110,
+  (e) => {
+    'use strict';
+    var t = e.i(43476);
+    e.s([
+      'default',
+      0,
+      function ({ draftModeEnabled: e }) {
+        async function i() {
+          let t;
+          if (e) t = await fetch('/api/draft-mode/disable');
+          else {
+            let e = prompt(
+              'To enter Draft Mode, you need to insert the SECRET_API_TOKEN:',
+              'secretTokenProtectingWebhookEndpointsFromBeingCalledByAnyone',
+            );
+            if (!e) return;
+            t = await fetch(`/api/draft-mode/enable?token=${e}`);
+          }
+          t.ok ? document.location.reload() : alert('Could not complete the operation!');
+        }
+        return e
+          ? (0, t.jsx)('button', {
+              type: 'button',
+              onClick: i,
+              'data-tooltip': 'Return to viewing published content',
+              children: 'Disable Draft Mode',
+            })
+          : (0, t.jsx)('button', {
+              type: 'button',
+              onClick: i,
+              'data-tooltip': 'Preview unpublished changes from DatoCMS',
+              children: 'Enable Draft Mode',
+            });
+      },
+    ]);
+  },
+]);

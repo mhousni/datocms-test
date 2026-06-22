@@ -1,1 +1,159 @@
-[{"tag":{"S":"tG_a_Tc3zen2UBlCdntz-/datocms"},"path":{"S":"tG_a_Tc3zen2UBlCdntz-/f5c5d12e458434652c3f870f0c7a3d9bf2f076d58390827c4a2cddd6d0910424"},"revalidatedAt":{"N":"1"}},{"tag":{"S":"tG_a_Tc3zen2UBlCdntz-/_N_T_/layout"},"path":{"S":"tG_a_Tc3zen2UBlCdntz-/_global-error"},"revalidatedAt":{"N":"1"}},{"tag":{"S":"tG_a_Tc3zen2UBlCdntz-/_N_T_/_global-error/layout"},"path":{"S":"tG_a_Tc3zen2UBlCdntz-/_global-error"},"revalidatedAt":{"N":"1"}},{"tag":{"S":"tG_a_Tc3zen2UBlCdntz-/_N_T_/_global-error/page"},"path":{"S":"tG_a_Tc3zen2UBlCdntz-/_global-error"},"revalidatedAt":{"N":"1"}},{"tag":{"S":"tG_a_Tc3zen2UBlCdntz-/_N_T_/_global-error"},"path":{"S":"tG_a_Tc3zen2UBlCdntz-/_global-error"},"revalidatedAt":{"N":"1"}},{"tag":{"S":"tG_a_Tc3zen2UBlCdntz-/_N_T_/layout"},"path":{"S":"tG_a_Tc3zen2UBlCdntz-/_not-found"},"revalidatedAt":{"N":"1"}},{"tag":{"S":"tG_a_Tc3zen2UBlCdntz-/_N_T_/_not-found/layout"},"path":{"S":"tG_a_Tc3zen2UBlCdntz-/_not-found"},"revalidatedAt":{"N":"1"}},{"tag":{"S":"tG_a_Tc3zen2UBlCdntz-/_N_T_/_not-found/page"},"path":{"S":"tG_a_Tc3zen2UBlCdntz-/_not-found"},"revalidatedAt":{"N":"1"}},{"tag":{"S":"tG_a_Tc3zen2UBlCdntz-/_N_T_/_not-found"},"path":{"S":"tG_a_Tc3zen2UBlCdntz-/_not-found"},"revalidatedAt":{"N":"1"}},{"tag":{"S":"tG_a_Tc3zen2UBlCdntz-/_N_T_/layout"},"path":{"S":"tG_a_Tc3zen2UBlCdntz-/basic"},"revalidatedAt":{"N":"1"}},{"tag":{"S":"tG_a_Tc3zen2UBlCdntz-/_N_T_/(base-layout)/layout"},"path":{"S":"tG_a_Tc3zen2UBlCdntz-/basic"},"revalidatedAt":{"N":"1"}},{"tag":{"S":"tG_a_Tc3zen2UBlCdntz-/_N_T_/(base-layout)/basic/layout"},"path":{"S":"tG_a_Tc3zen2UBlCdntz-/basic"},"revalidatedAt":{"N":"1"}},{"tag":{"S":"tG_a_Tc3zen2UBlCdntz-/_N_T_/(base-layout)/basic/page"},"path":{"S":"tG_a_Tc3zen2UBlCdntz-/basic"},"revalidatedAt":{"N":"1"}},{"tag":{"S":"tG_a_Tc3zen2UBlCdntz-/_N_T_/basic"},"path":{"S":"tG_a_Tc3zen2UBlCdntz-/basic"},"revalidatedAt":{"N":"1"}},{"tag":{"S":"tG_a_Tc3zen2UBlCdntz-/datocms"},"path":{"S":"tG_a_Tc3zen2UBlCdntz-/basic"},"revalidatedAt":{"N":"1"}},{"tag":{"S":"tG_a_Tc3zen2UBlCdntz-/_N_T_/layout"},"path":{"S":"tG_a_Tc3zen2UBlCdntz-/index"},"revalidatedAt":{"N":"1"}},{"tag":{"S":"tG_a_Tc3zen2UBlCdntz-/_N_T_/(base-layout)/layout"},"path":{"S":"tG_a_Tc3zen2UBlCdntz-/index"},"revalidatedAt":{"N":"1"}},{"tag":{"S":"tG_a_Tc3zen2UBlCdntz-/_N_T_/(base-layout)/page"},"path":{"S":"tG_a_Tc3zen2UBlCdntz-/index"},"revalidatedAt":{"N":"1"}},{"tag":{"S":"tG_a_Tc3zen2UBlCdntz-/_N_T_/"},"path":{"S":"tG_a_Tc3zen2UBlCdntz-/index"},"revalidatedAt":{"N":"1"}},{"tag":{"S":"tG_a_Tc3zen2UBlCdntz-/_N_T_/index"},"path":{"S":"tG_a_Tc3zen2UBlCdntz-/index"},"revalidatedAt":{"N":"1"}},{"tag":{"S":"tG_a_Tc3zen2UBlCdntz-/datocms"},"path":{"S":"tG_a_Tc3zen2UBlCdntz-/index"},"revalidatedAt":{"N":"1"}},{"tag":{"S":"tG_a_Tc3zen2UBlCdntz-/_N_T_/layout"},"path":{"S":"tG_a_Tc3zen2UBlCdntz-/private-datocms-plugin"},"revalidatedAt":{"N":"1"}},{"tag":{"S":"tG_a_Tc3zen2UBlCdntz-/_N_T_/private-datocms-plugin/layout"},"path":{"S":"tG_a_Tc3zen2UBlCdntz-/private-datocms-plugin"},"revalidatedAt":{"N":"1"}},{"tag":{"S":"tG_a_Tc3zen2UBlCdntz-/_N_T_/private-datocms-plugin/page"},"path":{"S":"tG_a_Tc3zen2UBlCdntz-/private-datocms-plugin"},"revalidatedAt":{"N":"1"}},{"tag":{"S":"tG_a_Tc3zen2UBlCdntz-/_N_T_/private-datocms-plugin"},"path":{"S":"tG_a_Tc3zen2UBlCdntz-/private-datocms-plugin"},"revalidatedAt":{"N":"1"}},{"tag":{"S":"tG_a_Tc3zen2UBlCdntz-/_N_T_/layout"},"path":{"S":"tG_a_Tc3zen2UBlCdntz-/real-time-updates"},"revalidatedAt":{"N":"1"}},{"tag":{"S":"tG_a_Tc3zen2UBlCdntz-/_N_T_/(base-layout)/layout"},"path":{"S":"tG_a_Tc3zen2UBlCdntz-/real-time-updates"},"revalidatedAt":{"N":"1"}},{"tag":{"S":"tG_a_Tc3zen2UBlCdntz-/_N_T_/(base-layout)/real-time-updates/layout"},"path":{"S":"tG_a_Tc3zen2UBlCdntz-/real-time-updates"},"revalidatedAt":{"N":"1"}},{"tag":{"S":"tG_a_Tc3zen2UBlCdntz-/_N_T_/(base-layout)/real-time-updates/page"},"path":{"S":"tG_a_Tc3zen2UBlCdntz-/real-time-updates"},"revalidatedAt":{"N":"1"}},{"tag":{"S":"tG_a_Tc3zen2UBlCdntz-/_N_T_/real-time-updates"},"path":{"S":"tG_a_Tc3zen2UBlCdntz-/real-time-updates"},"revalidatedAt":{"N":"1"}},{"tag":{"S":"tG_a_Tc3zen2UBlCdntz-/datocms"},"path":{"S":"tG_a_Tc3zen2UBlCdntz-/real-time-updates"},"revalidatedAt":{"N":"1"}}]
+[
+  {
+    "tag": { "S": "tG_a_Tc3zen2UBlCdntz-/datocms" },
+    "path": {
+      "S": "tG_a_Tc3zen2UBlCdntz-/f5c5d12e458434652c3f870f0c7a3d9bf2f076d58390827c4a2cddd6d0910424"
+    },
+    "revalidatedAt": { "N": "1" }
+  },
+  {
+    "tag": { "S": "tG_a_Tc3zen2UBlCdntz-/_N_T_/layout" },
+    "path": { "S": "tG_a_Tc3zen2UBlCdntz-/_global-error" },
+    "revalidatedAt": { "N": "1" }
+  },
+  {
+    "tag": { "S": "tG_a_Tc3zen2UBlCdntz-/_N_T_/_global-error/layout" },
+    "path": { "S": "tG_a_Tc3zen2UBlCdntz-/_global-error" },
+    "revalidatedAt": { "N": "1" }
+  },
+  {
+    "tag": { "S": "tG_a_Tc3zen2UBlCdntz-/_N_T_/_global-error/page" },
+    "path": { "S": "tG_a_Tc3zen2UBlCdntz-/_global-error" },
+    "revalidatedAt": { "N": "1" }
+  },
+  {
+    "tag": { "S": "tG_a_Tc3zen2UBlCdntz-/_N_T_/_global-error" },
+    "path": { "S": "tG_a_Tc3zen2UBlCdntz-/_global-error" },
+    "revalidatedAt": { "N": "1" }
+  },
+  {
+    "tag": { "S": "tG_a_Tc3zen2UBlCdntz-/_N_T_/layout" },
+    "path": { "S": "tG_a_Tc3zen2UBlCdntz-/_not-found" },
+    "revalidatedAt": { "N": "1" }
+  },
+  {
+    "tag": { "S": "tG_a_Tc3zen2UBlCdntz-/_N_T_/_not-found/layout" },
+    "path": { "S": "tG_a_Tc3zen2UBlCdntz-/_not-found" },
+    "revalidatedAt": { "N": "1" }
+  },
+  {
+    "tag": { "S": "tG_a_Tc3zen2UBlCdntz-/_N_T_/_not-found/page" },
+    "path": { "S": "tG_a_Tc3zen2UBlCdntz-/_not-found" },
+    "revalidatedAt": { "N": "1" }
+  },
+  {
+    "tag": { "S": "tG_a_Tc3zen2UBlCdntz-/_N_T_/_not-found" },
+    "path": { "S": "tG_a_Tc3zen2UBlCdntz-/_not-found" },
+    "revalidatedAt": { "N": "1" }
+  },
+  {
+    "tag": { "S": "tG_a_Tc3zen2UBlCdntz-/_N_T_/layout" },
+    "path": { "S": "tG_a_Tc3zen2UBlCdntz-/basic" },
+    "revalidatedAt": { "N": "1" }
+  },
+  {
+    "tag": { "S": "tG_a_Tc3zen2UBlCdntz-/_N_T_/(base-layout)/layout" },
+    "path": { "S": "tG_a_Tc3zen2UBlCdntz-/basic" },
+    "revalidatedAt": { "N": "1" }
+  },
+  {
+    "tag": { "S": "tG_a_Tc3zen2UBlCdntz-/_N_T_/(base-layout)/basic/layout" },
+    "path": { "S": "tG_a_Tc3zen2UBlCdntz-/basic" },
+    "revalidatedAt": { "N": "1" }
+  },
+  {
+    "tag": { "S": "tG_a_Tc3zen2UBlCdntz-/_N_T_/(base-layout)/basic/page" },
+    "path": { "S": "tG_a_Tc3zen2UBlCdntz-/basic" },
+    "revalidatedAt": { "N": "1" }
+  },
+  {
+    "tag": { "S": "tG_a_Tc3zen2UBlCdntz-/_N_T_/basic" },
+    "path": { "S": "tG_a_Tc3zen2UBlCdntz-/basic" },
+    "revalidatedAt": { "N": "1" }
+  },
+  {
+    "tag": { "S": "tG_a_Tc3zen2UBlCdntz-/datocms" },
+    "path": { "S": "tG_a_Tc3zen2UBlCdntz-/basic" },
+    "revalidatedAt": { "N": "1" }
+  },
+  {
+    "tag": { "S": "tG_a_Tc3zen2UBlCdntz-/_N_T_/layout" },
+    "path": { "S": "tG_a_Tc3zen2UBlCdntz-/index" },
+    "revalidatedAt": { "N": "1" }
+  },
+  {
+    "tag": { "S": "tG_a_Tc3zen2UBlCdntz-/_N_T_/(base-layout)/layout" },
+    "path": { "S": "tG_a_Tc3zen2UBlCdntz-/index" },
+    "revalidatedAt": { "N": "1" }
+  },
+  {
+    "tag": { "S": "tG_a_Tc3zen2UBlCdntz-/_N_T_/(base-layout)/page" },
+    "path": { "S": "tG_a_Tc3zen2UBlCdntz-/index" },
+    "revalidatedAt": { "N": "1" }
+  },
+  {
+    "tag": { "S": "tG_a_Tc3zen2UBlCdntz-/_N_T_/" },
+    "path": { "S": "tG_a_Tc3zen2UBlCdntz-/index" },
+    "revalidatedAt": { "N": "1" }
+  },
+  {
+    "tag": { "S": "tG_a_Tc3zen2UBlCdntz-/_N_T_/index" },
+    "path": { "S": "tG_a_Tc3zen2UBlCdntz-/index" },
+    "revalidatedAt": { "N": "1" }
+  },
+  {
+    "tag": { "S": "tG_a_Tc3zen2UBlCdntz-/datocms" },
+    "path": { "S": "tG_a_Tc3zen2UBlCdntz-/index" },
+    "revalidatedAt": { "N": "1" }
+  },
+  {
+    "tag": { "S": "tG_a_Tc3zen2UBlCdntz-/_N_T_/layout" },
+    "path": { "S": "tG_a_Tc3zen2UBlCdntz-/private-datocms-plugin" },
+    "revalidatedAt": { "N": "1" }
+  },
+  {
+    "tag": { "S": "tG_a_Tc3zen2UBlCdntz-/_N_T_/private-datocms-plugin/layout" },
+    "path": { "S": "tG_a_Tc3zen2UBlCdntz-/private-datocms-plugin" },
+    "revalidatedAt": { "N": "1" }
+  },
+  {
+    "tag": { "S": "tG_a_Tc3zen2UBlCdntz-/_N_T_/private-datocms-plugin/page" },
+    "path": { "S": "tG_a_Tc3zen2UBlCdntz-/private-datocms-plugin" },
+    "revalidatedAt": { "N": "1" }
+  },
+  {
+    "tag": { "S": "tG_a_Tc3zen2UBlCdntz-/_N_T_/private-datocms-plugin" },
+    "path": { "S": "tG_a_Tc3zen2UBlCdntz-/private-datocms-plugin" },
+    "revalidatedAt": { "N": "1" }
+  },
+  {
+    "tag": { "S": "tG_a_Tc3zen2UBlCdntz-/_N_T_/layout" },
+    "path": { "S": "tG_a_Tc3zen2UBlCdntz-/real-time-updates" },
+    "revalidatedAt": { "N": "1" }
+  },
+  {
+    "tag": { "S": "tG_a_Tc3zen2UBlCdntz-/_N_T_/(base-layout)/layout" },
+    "path": { "S": "tG_a_Tc3zen2UBlCdntz-/real-time-updates" },
+    "revalidatedAt": { "N": "1" }
+  },
+  {
+    "tag": { "S": "tG_a_Tc3zen2UBlCdntz-/_N_T_/(base-layout)/real-time-updates/layout" },
+    "path": { "S": "tG_a_Tc3zen2UBlCdntz-/real-time-updates" },
+    "revalidatedAt": { "N": "1" }
+  },
+  {
+    "tag": { "S": "tG_a_Tc3zen2UBlCdntz-/_N_T_/(base-layout)/real-time-updates/page" },
+    "path": { "S": "tG_a_Tc3zen2UBlCdntz-/real-time-updates" },
+    "revalidatedAt": { "N": "1" }
+  },
+  {
+    "tag": { "S": "tG_a_Tc3zen2UBlCdntz-/_N_T_/real-time-updates" },
+    "path": { "S": "tG_a_Tc3zen2UBlCdntz-/real-time-updates" },
+    "revalidatedAt": { "N": "1" }
+  },
+  {
+    "tag": { "S": "tG_a_Tc3zen2UBlCdntz-/datocms" },
+    "path": { "S": "tG_a_Tc3zen2UBlCdntz-/real-time-updates" },
+    "revalidatedAt": { "N": "1" }
+  }
+]
