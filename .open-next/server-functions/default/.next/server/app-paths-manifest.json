@@ -1,0 +1,16 @@
+{
+  "/(base-layout)/basic/page": "app/(base-layout)/basic/page.js",
+  "/(base-layout)/basic/page/[slug]/page": "app/(base-layout)/basic/page/[slug]/page.js",
+  "/(base-layout)/page": "app/(base-layout)/page.js",
+  "/(base-layout)/real-time-updates/[slug]/page": "app/(base-layout)/real-time-updates/[slug]/page.js",
+  "/(base-layout)/real-time-updates/page": "app/(base-layout)/real-time-updates/page.js",
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/draft-mode/disable/route": "app/api/draft-mode/disable/route.js",
+  "/api/draft-mode/enable/route": "app/api/draft-mode/enable/route.js",
+  "/api/invalidate-cache/route": "app/api/invalidate-cache/route.js",
+  "/api/post-deploy/route": "app/api/post-deploy/route.js",
+  "/api/preview-links/route": "app/api/preview-links/route.js",
+  "/api/seo-analysis/route": "app/api/seo-analysis/route.js",
+  "/private-datocms-plugin/page": "app/private-datocms-plugin/page.js"
+}

@@ -6,6 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "build:cf": "opennextjs-cloudflare build",
+    "deploy:cf": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "lint": "next lint && prettier --check .",
     "generate-schema": "dotenv -c -- bash -c 'gql.tada generate schema https://graphql.datocms.com --header \"X-Exclude-Invalid: true\" --header \"Authorization: $DATOCMS_PUBLISHED_CONTENT_CDA_TOKEN\" && gql.tada generate-output'",
     "generate-cma-types": "dotenv -c -- bash -c 'npx datocms schema:generate src/lib/datocms/cma-types.ts --api-token $DATOCMS_CMA_TOKEN'",
@@ -16,6 +18,8 @@
     "@datocms/cda-client": "^0.2.10",
     "@datocms/cma-client": "^5.4.18",
     "@datocms/content-link": "^0.3.21",
+    "@mux/mux-player-react": "^3.13.0",
+    "@opennextjs/cloudflare": "^1.19.11",
     "@types/highlight.js": "^10.1.0",
     "datocms-plugin-sdk": "^2.1.5",
     "datocms-react-ui": "^2.1.5",
@@ -23,7 +27,6 @@
     "datocms-structured-text-utils": "^5.1.16",
     "gql.tada": "^1.9.0",
     "highlight.js": "^11.11.1",
-    "@mux/mux-player-react": "^3.13.0",
     "next": "^16",
     "node-html-parser": "^7.0.1",
     "react": "^19",
@@ -32,15 +35,16 @@
     "serialize-error": "^12.0.0"
   },
   "devDependencies": {
-    "datocms": "^4.0.26",
     "@types/jsdom": "^27.0.0",
     "@types/node": "^24",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "datocms": "^4.0.26",
     "dotenv-cli": "^11.0.0",
     "prettier": "3.7.4",
     "simple-git-hooks": "^2.13.1",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "wrangler": "^4.103.0"
   },
   "simple-git-hooks": {
     "pre-commit": "npm run format"

@@ -1,0 +1,134 @@
+{
+  "version": 3,
+  "pages404": true,
+  "appType": "app",
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "priority": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [],
+  "onMatchHeaders": [],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [],
+    "fallback": []
+  },
+  "dynamicRoutes": [
+    {
+      "page": "/basic/page/[slug]",
+      "regex": "^/basic/page/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/basic/page/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/real-time-updates/[slug]",
+      "regex": "^/real\\-time\\-updates/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/real\\-time\\-updates/(?<nxtPslug>[^/]+?)(?:/)?$"
+    }
+  ],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_global-error",
+      "regex": "^/_global\\-error(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_global\\-error(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/api/draft-mode/disable",
+      "regex": "^/api/draft\\-mode/disable(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/draft\\-mode/disable(?:/)?$"
+    },
+    {
+      "page": "/api/draft-mode/enable",
+      "regex": "^/api/draft\\-mode/enable(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/draft\\-mode/enable(?:/)?$"
+    },
+    {
+      "page": "/api/invalidate-cache",
+      "regex": "^/api/invalidate\\-cache(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/invalidate\\-cache(?:/)?$"
+    },
+    {
+      "page": "/api/post-deploy",
+      "regex": "^/api/post\\-deploy(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/post\\-deploy(?:/)?$"
+    },
+    {
+      "page": "/api/preview-links",
+      "regex": "^/api/preview\\-links(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/preview\\-links(?:/)?$"
+    },
+    {
+      "page": "/api/seo-analysis",
+      "regex": "^/api/seo\\-analysis(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/seo\\-analysis(?:/)?$"
+    },
+    {
+      "page": "/basic",
+      "regex": "^/basic(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/basic(?:/)?$"
+    },
+    {
+      "page": "/private-datocms-plugin",
+      "regex": "^/private\\-datocms\\-plugin(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/private\\-datocms\\-plugin(?:/)?$"
+    },
+    {
+      "page": "/real-time-updates",
+      "regex": "^/real\\-time\\-updates(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/real\\-time\\-updates(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "rsc",
+    "varyHeader": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "prefetchHeader": "next-router-prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSegmentHeader": "next-router-segment-prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments",
+    "clientParamParsing": false,
+    "dynamicRSCPrerender": false
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}

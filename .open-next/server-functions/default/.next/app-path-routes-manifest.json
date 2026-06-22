@@ -1,0 +1,16 @@
+{
+  "/(base-layout)/basic/page": "/basic",
+  "/(base-layout)/basic/page/[slug]/page": "/basic/page/[slug]",
+  "/(base-layout)/page": "/",
+  "/(base-layout)/real-time-updates/[slug]/page": "/real-time-updates/[slug]",
+  "/(base-layout)/real-time-updates/page": "/real-time-updates",
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/api/draft-mode/disable/route": "/api/draft-mode/disable",
+  "/api/draft-mode/enable/route": "/api/draft-mode/enable",
+  "/api/invalidate-cache/route": "/api/invalidate-cache",
+  "/api/post-deploy/route": "/api/post-deploy",
+  "/api/preview-links/route": "/api/preview-links",
+  "/api/seo-analysis/route": "/api/seo-analysis",
+  "/private-datocms-plugin/page": "/private-datocms-plugin"
+}

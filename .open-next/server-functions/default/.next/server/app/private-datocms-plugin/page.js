@@ -1,0 +1,13 @@
+var R=require("../../chunks/ssr/[turbopack]_runtime.js")("server/app/private-datocms-plugin/page.js")
+R.c("server/chunks/ssr/[root-of-the-server]__1zgnxu-._.js")
+R.c("server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_0d25f0g.js")
+R.c("server/chunks/ssr/[root-of-the-server]__1_kqtr4._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__09khie0._.js")
+R.c("server/chunks/ssr/src_app_layout_tsx_0r5yz5t._.js")
+R.c("server/chunks/ssr/node_modules_next_dist_client_components_0wpq8j3._.js")
+R.c("server/chunks/ssr/node_modules_next_dist_client_components_builtin_forbidden_0symwr9.js")
+R.c("server/chunks/ssr/node_modules_next_dist_client_components_builtin_unauthorized_0l_sp0x.js")
+R.c("server/chunks/ssr/src_app_global-error_tsx_1o3h_re._.js")
+R.c("server/chunks/ssr/_next-internal_server_app_private-datocms-plugin_page_actions_1bhq6q6.js")
+R.m(79395)
+module.exports=R.m(79395).exports
