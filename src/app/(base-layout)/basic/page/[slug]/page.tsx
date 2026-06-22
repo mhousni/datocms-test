@@ -88,7 +88,14 @@ export default async function Page({ params }: PageProps) {
   return (
     <>
       <h1>{page.label}</h1>
-      <div style={{ padding: '24px', border: '1px dashed #ccc', borderRadius: '8px', margin: '20px 0' }}>
+      <div
+        style={{
+          padding: '24px',
+          border: '1px dashed #ccc',
+          borderRadius: '8px',
+          margin: '20px 0',
+        }}
+      >
         <p style={{ fontWeight: 'bold' }}>Modular Sections ({page.sections.length}):</p>
         <ul style={{ listStyleType: 'disc', paddingLeft: '20px' }}>
           {page.sections.map((section) => (
